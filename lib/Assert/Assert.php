@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Assert;
 
+use Exception;
 use Webmozart\Assert as Webmozart;
 
 /**
@@ -29,6 +30,14 @@ final class Assert extends Webmozart\Assert
      */
     public static function __callStatic($method, $arguments)
     {
+        // Handle Exception-parameter
+        $last = end($arguments);
+        if (class_exists($last) && is_subclass_of($last, Exception::class)) {
+            self::$exceptionClass = $last;
+
+            array_pop($arguments);
+        }
+
         call_user_func_array([parent::class, $method], $arguments);
     }
 
