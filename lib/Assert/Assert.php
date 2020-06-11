@@ -35,13 +35,14 @@ final class Assert extends Webmozart\Assert
 
     /**
      * @param string $message
+     * @return void
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException
      *
      * @psalm-pure this method is not supposed to perform side-effects
      * @psalm-suppress InvalidStringClass
      */
-    protected static function reportInvalidArgument($message): void
+    protected static function reportInvalidArgument($message)
     {
         throw new static::$exceptionClass($message);
     }
