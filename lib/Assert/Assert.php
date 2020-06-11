@@ -38,7 +38,12 @@ final class Assert extends Webmozart\Assert
             array_pop($arguments);
         }
 
-        call_user_func_array([parent::class, $method], $arguments);
+        // Handle locally added assertions
+        if (method_exists(static::class, $method)) {
+            call_user_func_array([static::class, $method], $arguments);
+        } else {
+            call_user_func_array([parent::class, $method], $arguments);
+        }
     }
 
 
