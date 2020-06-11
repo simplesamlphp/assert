@@ -17,7 +17,7 @@ final class Assert extends Webmozart\Assert
     /**
      * Exception to throw when an assertion failed.
      *
-     * @var string
+     * @var class-string
      */
     protected $exceptionClass = AssertionFailedException::class;
 
