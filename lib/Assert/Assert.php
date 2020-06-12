@@ -20,7 +20,7 @@ final class Assert extends Webmozart\Assert
      *
      * @var class-string
      */
-    protected $exceptionClass = AssertionFailedException::class;
+    protected static $exceptionClass = AssertionFailedException::class;
 
 
     /**
@@ -58,6 +58,6 @@ final class Assert extends Webmozart\Assert
      */
     protected static function reportInvalidArgument($message)
     {
-        throw new static::$exceptionClass($message);
+        throw new self::$exceptionClass($message);
     }
 }
