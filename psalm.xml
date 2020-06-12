@@ -6,7 +6,7 @@
   hideExternalErrors="true"
 >
   <projectFiles>
-    <directory name="lib/" />
+    <directory name="src/" />
     <directory name="tests/" />
     <ignoreFiles>
       <directory name="vendor" />
