@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SAML2\Assert;
 
+use BadMethodCallException;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
@@ -23,7 +24,7 @@ final class AssertTest extends TestCase
     public function testAssertionFailingThrowsException(): void
     {
         $this->expectException(AssertionFailedException::class);
-        Assert::same('a', 'b');
+        Assert::nullOrSame('a', 'b');
     }
 
 
@@ -33,6 +34,16 @@ final class AssertTest extends TestCase
     public function testAssertionFailingWithCustomExceptionThrowsCustomException(): void
     {
         $this->expectException(LogicException::class);
-        Assert::same('a', 'b', LogicException::class);
+        Assert::allSame(['a', 'b', 'c'], 'b', LogicException::class);
+    }
+
+
+    /**
+     * @return void
+     */
+    public function testUnknownAssertionRaisesBadMethodCallException(): void
+    {
+        $this->expectException(BadMethodCallException::class);
+        Assert::thisAssertionDoesNotExist('a', 'b', LogicException::class);
     }
 }
