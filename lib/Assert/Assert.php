@@ -32,7 +32,7 @@ final class Assert extends Webmozart\Assert
     {
         // Handle Exception-parameter
         $last = end($arguments);
-        if (class_exists($last) && is_subclass_of($last, Exception::class)) {
+        if (is_string($last) && class_exists($last) && is_subclass_of($last, Exception::class)) {
             self::$exceptionClass = $last;
 
             array_pop($arguments);
