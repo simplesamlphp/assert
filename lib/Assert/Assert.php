@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Assert;
 
+use BadMethodCallException;
 use Exception;
 use Webmozart\Assert as Webmozart;
 
@@ -24,11 +25,11 @@ final class Assert extends Webmozart\Assert
 
 
     /**
-     * @param string $method
+     * @param string $name
      * @param array $arguments
      * @return void
      */
-    public static function __callStatic($method, $arguments)
+    public static function __callStatic($name, $arguments)
     {
         // Handle Exception-parameter
         $last = end($arguments);
@@ -38,12 +39,36 @@ final class Assert extends Webmozart\Assert
             array_pop($arguments);
         }
 
+        if ('nullOr' === substr($name, 0, 6)) {
+            if (null !== $arguments[0]) {
+                $method = lcfirst(substr($name, 6));
+                call_user_func_array(['static', $method], $arguments);
+            }
+
+            return;
+        }
+
+        if ('all' === substr($name, 0, 3)) {
+            static::isIterable($arguments[0]);
+
+            $method = lcfirst(substr($name, 3));
+            $args = $arguments;
+
+            foreach ($arguments[0] as $entry) {
+                $args[0] = $entry;
+
+                call_user_func_array(['static', $method], $args);
+            }
+
+            return;
+        }
+
         // Handle locally added assertions
         if (method_exists(static::class, $method)) {
             call_user_func_array([static::class, $method], $arguments);
-        } else {
-            call_user_func_array([parent::class, $method], $arguments);
         }
+
+        throw new BadMethodCallException('No such method: ' . $name);
     }
 
 
