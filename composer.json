@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\Assert\\": "lib/Assert/"
+            "SimpleSAML\\Assert\\": "src/Assert/"
         }
     },
     "autoload-dev": {
