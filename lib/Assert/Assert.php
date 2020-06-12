@@ -26,7 +26,6 @@ final class Assert
         // Handle Exception-parameter
         $exception = \InvalidArgumentException::class;
         $last = end($arguments);
-        echo $last."\n\n";
         if (is_string($last) && class_exists($last) && is_subclass_of($last, \Throwable::class)) {
             $exception = $last;
 
