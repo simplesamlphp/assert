@@ -24,7 +24,7 @@ final class Assert
     public static function __callStatic($name, $arguments)
     {
         // Handle Exception-parameter
-        $exception = \InvalidArgumentException::class;
+        $exception = AssertionFailedException::class;
         $last = end($arguments);
         if (is_string($last) && class_exists($last) && is_subclass_of($last, \Throwable::class)) {
             $exception = $last;
