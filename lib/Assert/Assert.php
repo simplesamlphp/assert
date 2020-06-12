@@ -14,7 +14,7 @@ use Webmozart\Assert\Assert as Webmozart;
  * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/assert
  */
-final class Assert 
+final class Assert
 {
     /**
      * @param string $name
@@ -59,9 +59,10 @@ final class Assert
 
                 return;
             }
-        
+
             // all other methods
             call_user_func_array([Webmozart::class, $name], $arguments);
+            return;
         } catch (\InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
         }
