@@ -5,7 +5,9 @@
     "authors": [
         {
             "name": "Tim van Dijen",
-            "email": "tvdijen@gmail.com"
+            "email": "tvdijen@gmail.com",
+            "name": "Jaime Perez Crespo",
+            "email": "jaimepc@gmail.com"
         }
     ],
     "require": {
