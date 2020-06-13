@@ -22,7 +22,7 @@ final class Assert
      * @param array $arguments
      * @return void
      */
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic($name, $arguments): void
     {
         // Handle Exception-parameter
         $exception = AssertionFailedException::class;
