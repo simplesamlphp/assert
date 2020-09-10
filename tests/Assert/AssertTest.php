@@ -13,7 +13,6 @@ use SimpleSAML\Assert\AssertionFailedException;
 /**
  * Class \SimpleSAML\Assert\Assert
  *
- * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/saml2
  */
 final class AssertTest extends TestCase

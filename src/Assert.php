@@ -12,7 +12,6 @@ use Webmozart\Assert\Assert as Webmozart;
 /**
  * Webmozart\Assert wrapper class
  *
- * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/assert
  */
 final class Assert
