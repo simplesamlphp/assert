@@ -19,7 +19,6 @@ final class Assert
     /**
      * @param string $name
      * @param array $arguments
-     * @return void
      */
     public static function __callStatic($name, $arguments): void
     {

@@ -18,7 +18,6 @@ use SimpleSAML\Assert\AssertionFailedException;
 final class AssertTest extends TestCase
 {
     /**
-     * @return void
      */
     public function testAssertionFailingThrowsException(): void
     {
@@ -28,7 +27,6 @@ final class AssertTest extends TestCase
 
 
     /**
-     * @return void
      */
     public function testAssertionFailingWithCustomExceptionThrowsCustomException(): void
     {
@@ -38,7 +36,6 @@ final class AssertTest extends TestCase
 
 
     /**
-     * @return void
      */
     public function testUnknownAssertionRaisesBadMethodCallException(): void
     {
