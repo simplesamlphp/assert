@@ -19,6 +19,14 @@ final class AssertTest extends TestCase
 {
     /**
      */
+    public function testAssertionPassing(): void
+    {
+        $result = Assert::integer(1);
+        $this->assertNull($result);
+    }
+
+    /**
+     */
     public function testAssertionFailingThrowsException(): void
     {
         $this->expectException(AssertionFailedException::class);
