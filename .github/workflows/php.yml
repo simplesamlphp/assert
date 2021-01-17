@@ -60,7 +60,7 @@ jobs:
       - name: Decide whether to run code coverage or not
         if: ${{ matrix.php-versions != '7.4' || matrix.operating-system != 'ubuntu-latest' }}
         run: |
-          echo "NO_COVERAGE=--no-coverage" >> $GIRHUB_ENV
+          echo "NO_COVERAGE=--no-coverage" >> $GITHUB_ENV
 
       - name: Run unit tests
         run: |
