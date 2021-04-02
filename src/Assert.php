@@ -67,11 +67,8 @@ final class Assert extends Webmozart
         if ($result === false) {
             throw new AssertionFailedException(
                 sprintf(
-                    $message ?: '%s is not a valid Base64 encoded string',
-                    call_user_func_array(
-                        [Webmozart::class, 'typeToString'],
-                        [is_object($value) ? get_class($value) : gettype($value)]
-                    )
+                    $message ?: '\'%s\' is not a valid Base64 encoded string',
+                    $value
                 )
             );
         }
