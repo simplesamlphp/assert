@@ -50,4 +50,13 @@ final class AssertTest extends TestCase
         $this->expectException(BadMethodCallException::class);
         Assert::thisAssertionDoesNotExist('a', 'b', LogicException::class);
     }
+
+
+    /**
+     */
+    public function testInvalidBase64(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::stringPlausibleBase64('&*$(#&^@!(^%$', AssertionFailedException::class);
+    }
 }

@@ -14,8 +14,10 @@ use Webmozart\Assert\Assert as Webmozart;
  *
  * @package simplesamlphp/assert
  */
-final class Assert
+final class Assert extends Webmozart
 {
+    private static string $base64_regex = '/^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/';
+
     /**
      * @param string $name
      * @param array $arguments
@@ -36,6 +38,42 @@ final class Assert
             return;
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
+        }
+    }
+
+
+    /**
+     * Note: This test is not bullet-proof but prevents a string containing illegal characters
+     * from being passed and ensures the string roughly follows the correct format for a Base64 encoded string
+     *
+     * @param string $value
+     * @param string $message
+     */
+    public static function stringPlausibleBase64(string $value, $message = ''): void
+    {
+        $result = true;
+
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$base64_regex]]) === false) {
+            $result = false;
+        } else {
+            $decoded = base64_decode($value, true);
+            if ($decoded === false) {
+                $result = false;
+            } elseif (base64_encode($decoded) !== $value) {
+                $result = false;
+            }
+        }
+
+        if ($result === false) {
+            throw new AssertionFailedException(
+                sprintf(
+                    $message ?: '%s is not a valid Base64 encoded string',
+                    call_user_func_array(
+                        [Webmozart::class, 'typeToString'],
+                        [is_object($value) ? get_class($value) : gettype($value)]
+                    )
+                )
+            );
         }
     }
 }
