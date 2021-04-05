@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SAML2\Assert;
+namespace SimpleSAML\Test\Assert;
 
 use BadMethodCallException;
 use LogicException;
