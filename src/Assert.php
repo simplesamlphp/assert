@@ -19,8 +19,6 @@ final class Assert
 {
     private static string $base64_regex = '/^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/';
 
-//    private static string $datetime_regex = '/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(.[0-9]+)?$/';
-
 
     /**
      * @param string $name
@@ -110,7 +108,7 @@ final class Assert
                     $value
                 )
             );
-        } elseif ($dateTime->getTimezone() !== 'Z') {
+        } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
             throw new AssertionFailedException(
                 sprintf(
                     $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
