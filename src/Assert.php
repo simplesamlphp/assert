@@ -36,12 +36,25 @@ final class Assert
         }
 
         try {
-            call_user_func_array([Webmozart::class, $name], $arguments);
+            if (method_exists(static::class, $name)) {
+                call_user_func_array([static::class, $name], $arguments);
+            } else {
+                call_user_func_array([Webmozart::class, $name], $arguments);
+            }
             return;
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
         }
     }
+
+
+    /***********************************************************************************
+     *  NOTE:  Custom assertions may be added below this line.                         *
+     *         They SHOULD be marked as `private` to ensure the call is forced         *
+     *          through __callStatic().                                                *
+     *         Assertions marked `public` are called directly and will                 *
+     *          not handle any custom exception passed to it.                          *
+     ***********************************************************************************/
 
 
     /**
@@ -51,7 +64,7 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    public static function stringPlausibleBase64(string $value, $message = ''): void
+    private static function stringPlausibleBase64(string $value, $message = ''): void
     {
         $result = true;
 
@@ -67,7 +80,7 @@ final class Assert
         }
 
         if ($result === false) {
-            throw new AssertionFailedException(
+            throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a valid Base64 encoded string',
                     $value
@@ -81,10 +94,10 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    public static function validDateTime(string $value, $message = ''): void
+    private static function validDateTime(string $value, $message = ''): void
     {
         if (DateTime::createFromFormat(DateTime::ISO8601, $value) === false) {
-            throw new AssertionFailedException(
+            throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a valid DateTime',
                     $value
@@ -98,18 +111,18 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    public static function validDateTimeZulu(string $value, $message = ''): void
+    private static function validDateTimeZulu(string $value, $message = ''): void
     {
         $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $value);
         if ($dateTime === false) {
-            throw new AssertionFailedException(
+            throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a valid DateTime',
                     $value
                 )
             );
         } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
-            throw new AssertionFailedException(
+            throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
                     $value
