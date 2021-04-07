@@ -93,7 +93,7 @@ final class AssertTest extends TestCase
     public function testInvalidDateTimeZulu(): void
     {
         $this->expectException(AssertionFailedException::class);
-        Assert::validDateTime('&*$(#&^@!(^%$', AssertionFailedException::class);
+        Assert::validDateTimeZulu('&*$(#&^@!(^%$', AssertionFailedException::class);
     }
 
 
@@ -101,7 +101,7 @@ final class AssertTest extends TestCase
      */
     public function testValidDateTimeNotZulu(): void
     {
-        $result = Assert::validDateTime('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
+        $result = Assert::validDateTimeZulu('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
         $this->assertNull($result);
     }
 
@@ -110,7 +110,7 @@ final class AssertTest extends TestCase
      */
     public function testValidDateTimeZulu(): void
     {
-        $result = Assert::validDateTime('2016-07-27T19:30:00Z', AssertionFailedException::class);
+        $result = Assert::validDateTimeZulu('2016-07-27T19:30:00Z', AssertionFailedException::class);
         $this->assertNull($result);
     }
 }
