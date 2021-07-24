@@ -16,7 +16,7 @@
         "php": "^7.4 || ^8.0",
         "ext-SPL": "*",
 
-        "webmozart/assert": "^1.9"
+        "webmozart/assert": "^1.10"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "^1.0.5"
