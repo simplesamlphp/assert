@@ -101,8 +101,8 @@ final class AssertTest extends TestCase
      */
     public function testValidDateTimeNotZulu(): void
     {
+        $this->expectException(AssertionFailedException::class);
         $result = Assert::validDateTimeZulu('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
-        $this->assertNull($result);
     }
 
 
