@@ -10,6 +10,17 @@ use InvalidArgumentException;
 use Throwable;
 use Webmozart\Assert\Assert as Webmozart;
 
+use function array_pop;
+use function base64_decode;
+use function base64_encode;
+use function call_user_func_array;
+use function end;
+use function filter_var;
+use function is_string;
+use function is_subclass_of;
+use function method_exists;
+use function sprintf;
+
 /**
  * Webmozart\Assert wrapper class
  *
