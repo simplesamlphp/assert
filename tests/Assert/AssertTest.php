@@ -21,8 +21,10 @@ final class AssertTest extends TestCase
      */
     public function testAssertionPassing(): void
     {
-        $result = Assert::integer(1);
-        $this->assertNull($result);
+        $this->doesNotPerformAssertions();
+
+        /** @psalm-suppress TooFewArguments */
+        Assert::integer(1);
     }
 
     /**
@@ -56,8 +58,8 @@ final class AssertTest extends TestCase
      */
     public function testValidBase64(): void
     {
-        $result = Assert::stringPlausibleBase64('U2ltcGxlU0FNTHBocA==', AssertionFailedException::class);
-        $this->assertNull($result);
+        $this->doesNotPerformAssertions();
+        Assert::stringPlausibleBase64('U2ltcGxlU0FNTHBocA==', AssertionFailedException::class);
     }
 
 
@@ -83,8 +85,8 @@ final class AssertTest extends TestCase
      */
     public function testValidDateTime(): void
     {
-        $result = Assert::validDateTime('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
-        $this->assertNull($result);
+        $this->doesNotPerformAssertions();
+        Assert::validDateTime('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
     }
 
 
@@ -102,7 +104,7 @@ final class AssertTest extends TestCase
     public function testValidDateTimeNotZulu(): void
     {
         $this->expectException(AssertionFailedException::class);
-        $result = Assert::validDateTimeZulu('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
+        Assert::validDateTimeZulu('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
     }
 
 
@@ -110,7 +112,7 @@ final class AssertTest extends TestCase
      */
     public function testValidDateTimeZulu(): void
     {
-        $result = Assert::validDateTimeZulu('2016-07-27T19:30:00Z', AssertionFailedException::class);
-        $this->assertNull($result);
+        $this->doesNotPerformAssertions();
+        Assert::validDateTimeZulu('2016-07-27T19:30:00Z', AssertionFailedException::class);
     }
 }
