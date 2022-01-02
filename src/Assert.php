@@ -6,17 +6,24 @@ namespace SimpleSAML\Assert;
 
 use BadMethodCallException;
 use DateTime;
+use DateTimeImmutable;
 use InvalidArgumentException;
 use Throwable;
 use Webmozart\Assert\Assert as Webmozart;
 
+use function array_map;
 use function array_pop;
 use function base64_decode;
 use function base64_encode;
 use function call_user_func_array;
 use function end;
 use function filter_var;
+use function get_class;
+use function implode;
+use function in_array;
 use function is_string;
+use function is_object;
+use function is_resource;
 use function is_subclass_of;
 use function method_exists;
 use function sprintf;
@@ -354,7 +361,7 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    private static function stringPlausibleBase64(string $value, $message = ''): void
+    private static function stringPlausibleBase64(string $value, string $message = ''): void
     {
         $result = true;
 
@@ -384,7 +391,7 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    private static function validDateTime(string $value, $message = ''): void
+    private static function validDateTime(string $value, string $message = ''): void
     {
         if (DateTime::createFromFormat(DateTime::ISO8601, $value) === false) {
             throw new InvalidArgumentException(
@@ -401,7 +408,7 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    private static function validDateTimeZulu(string $value, $message = ''): void
+    private static function validDateTimeZulu(string $value, string $message = ''): void
     {
         $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $value);
         if ($dateTime === false) {
@@ -419,5 +426,71 @@ final class Assert
                 )
             );
         }
+    }
+
+
+    /**
+     * @param mixed $value
+     * @param array $values
+     * @param string $message
+     */
+    private static function notInArray($value, array $values, string $message = ''): void
+    {
+        if (in_array($value, $values, true)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    $message ?: 'Expected none of: %2$s. Got: %s',
+                    static::valueToString($value),
+                    implode(', ', array_map(['static', 'valueToString'], $values))
+                )
+            );
+        }
+    }
+
+
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
+    protected static function valueToString($value)
+    {
+        if (null === $value) {
+            return 'null';
+        }
+
+        if (true === $value) {
+            return 'true';
+        }
+
+        if (false === $value) {
+            return 'false';
+        }
+
+        if (is_array($value)) {
+            return 'array';
+        }
+
+        if (is_object($value)) {
+            if (method_exists($value, '__toString')) {
+                return get_class($value) . ': ' . self::valueToString($value->__toString());
+            }
+
+            if ($value instanceof DateTime || $value instanceof DateTimeImmutable) {
+                return get_class($value) . ': ' . self::valueToString($value->format('c'));
+            }
+
+            return get_class($value);
+        }
+
+        if (is_resource($value)) {
+            return 'resource';
+        }
+
+        if (is_string($value)) {
+            return '"' . $value . '"';
+        }
+
+        return (string) $value;
     }
 }
