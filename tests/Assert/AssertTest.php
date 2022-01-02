@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\Assert;
 
 use BadMethodCallException;
+use DateTime;
+use ArrayIterator;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
+use StdClass;
 
 /**
  * Class \SimpleSAML\Assert\Assert
@@ -114,5 +117,23 @@ final class AssertTest extends TestCase
     {
         $this->doesNotPerformAssertions();
         Assert::validDateTimeZulu('2016-07-27T19:30:00Z', AssertionFailedException::class);
+    }
+
+
+    /**
+     */
+    public function testNotInArrayIfInArray(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::notInArray(1, [1]);
+    }
+
+
+    /**
+     */
+    public function testNotInArrayIfNotInArray(): void
+    {
+        $this->doesNotPerformAssertions();
+        Assert::notInArray(0, [1]);
     }
 }
