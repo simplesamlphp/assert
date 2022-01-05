@@ -373,8 +373,8 @@ final class Assert
             throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a valid Base64 encoded string',
-                    $value
-                )
+                    $value,
+                ),
             );
         }
     }
@@ -390,8 +390,8 @@ final class Assert
             throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a valid DateTime',
-                    $value
-                )
+                    $value,
+                ),
             );
         }
     }
@@ -408,15 +408,15 @@ final class Assert
             throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a valid DateTime',
-                    $value
-                )
+                    $value,
+                ),
             );
         } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
             throw new InvalidArgumentException(
                 sprintf(
                     $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
-                    $value
-                )
+                    $value,
+                ),
             );
         }
     }
