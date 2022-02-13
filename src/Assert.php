@@ -314,7 +314,7 @@ final class Assert
      * @param string $name
      * @param array $arguments
      */
-    public static function __callStatic($name, $arguments): void
+    public static function __callStatic(string $name, array $arguments): void
     {
         // Handle Exception-parameter
         $exception = AssertionFailedException::class;
@@ -354,7 +354,7 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    private static function stringPlausibleBase64(string $value, $message = ''): void
+    private static function stringPlausibleBase64(string $value, string $message = ''): void
     {
         $result = true;
 
@@ -384,7 +384,7 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    private static function validDateTime(string $value, $message = ''): void
+    private static function validDateTime(string $value, string $message = ''): void
     {
         if (DateTime::createFromFormat(DateTime::ISO8601, $value) === false) {
             throw new InvalidArgumentException(
@@ -401,7 +401,7 @@ final class Assert
      * @param string $value
      * @param string $message
      */
-    private static function validDateTimeZulu(string $value, $message = ''): void
+    private static function validDateTimeZulu(string $value, string $message = ''): void
     {
         $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $value);
         if ($dateTime === false) {
