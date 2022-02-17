@@ -205,3 +205,8 @@ jobs:
       - name: Psalter
         continue-on-error: true
         run: php vendor/bin/psalter --issues=UnnecessaryVarAnnotation --dry-run
+
+      - name: Lint markdown files
+        uses: nosborn/github-action-markdown-cli@v2.0.0
+        with:
+          files: README.md docs/*
