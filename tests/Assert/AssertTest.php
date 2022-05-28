@@ -21,11 +21,10 @@ use StdClass;
 final class AssertTest extends TestCase
 {
     /**
+     * @doesNotPerformAssertions
      */
     public function testAssertionPassing(): void
     {
-        $this->doesNotPerformAssertions();
-
         /** @psalm-suppress TooFewArguments */
         Assert::integer(1);
     }
@@ -58,10 +57,10 @@ final class AssertTest extends TestCase
 
 
     /**
+     * @doesNotPerformAssertions
      */
     public function testValidBase64(): void
     {
-        $this->doesNotPerformAssertions();
         Assert::stringPlausibleBase64('U2ltcGxlU0FNTHBocA==', AssertionFailedException::class);
     }
 
@@ -85,10 +84,10 @@ final class AssertTest extends TestCase
 
 
     /**
+     * @doesNotPerformAssertions
      */
     public function testValidDateTime(): void
     {
-        $this->doesNotPerformAssertions();
         Assert::validDateTime('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
     }
 
@@ -112,10 +111,10 @@ final class AssertTest extends TestCase
 
 
     /**
+     * @doesNotPerformAssertions
      */
     public function testValidDateTimeZulu(): void
     {
-        $this->doesNotPerformAssertions();
         Assert::validDateTimeZulu('2016-07-27T19:30:00Z', AssertionFailedException::class);
     }
 
@@ -130,10 +129,10 @@ final class AssertTest extends TestCase
 
 
     /**
+     * @doesNotPerformAssertions
      */
     public function testNotInArrayIfNotInArray(): void
     {
-        $this->doesNotPerformAssertions();
         Assert::notInArray(0, [1]);
     }
 }
