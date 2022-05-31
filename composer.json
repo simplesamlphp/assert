@@ -19,8 +19,7 @@
         "webmozart/assert": "^1.10"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "^1.2.0",
-        "vimeo/psalm": "^5.0.0-beta1"
+        "simplesamlphp/simplesamlphp-test-framework": "^1.2.1"
     },
     "autoload": {
         "psr-4": {
@@ -29,12 +28,13 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Assert\\": "tests/Assert/"
+            "SimpleSAML\\Test\\Assert\\": "tests/Assert/",
+            "SimpleSAML\\Test\\Utils\\": "tests/Utils/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "v0.1.x-dev"
+            "dev-master": "v0.2.x-dev"
         }
     },
     "config": {

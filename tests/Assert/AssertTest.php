@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\Assert;
 
 use BadMethodCallException;
-use DateTime;
+use DateTimeImmutable;
 use ArrayIterator;
 use LogicException;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
+use SimpleSAML\Test\Utils\TestClass;
 use StdClass;
+
+use function getcwd;
+use function opendir;
 
 /**
  * Class \SimpleSAML\Assert\Assert
@@ -134,5 +139,48 @@ final class AssertTest extends TestCase
     public function testNotInArrayIfNotInArray(): void
     {
         Assert::notInArray(0, [1]);
+    }
+
+
+    /**
+     * @dataProvider provideValue
+     * @param mixed $value
+     * @param string $expected
+     */
+    public function testValueToString($value, string $expected): void
+    {
+        $assert = new Assert();
+        $method = new ReflectionMethod(Assert::class, 'valueToString');
+        $method->setAccessible(true);
+
+        $this->assertEquals($expected, $method->invoke($assert, $value));
+    }
+
+
+    /**
+     * @return array
+     */
+    public function provideValue(): array
+    {
+        $stringable = new TestClass('phpunit');
+
+        $dateTime = new DateTimeImmutable('2000-01-01');
+
+        $otherObject = new StdClass();
+
+        $resource = opendir(getcwd());
+
+        return [
+            'null' => [null, 'null'],
+            'true' => [true, 'true'],
+            'false' => [false, 'false'],
+            'array' => [[], 'array'],
+            'Stringable' => [$stringable, 'SimpleSAML\Test\Utils\TestClass: "phpunit"'],
+            'DateTime' => [$dateTime, 'DateTimeImmutable: "2000-01-01T00:00:00+00:00"'],
+            'object' => [$otherObject, 'stdClass'],
+            'resource' => [$resource, 'resource'],
+            'string' => ['string', '"string"'],
+            'other' => [1, '1'],
+        ];
     }
 }

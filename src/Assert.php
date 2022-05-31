@@ -453,7 +453,7 @@ final class Assert
      *
      * @return string
      */
-    protected static function valueToString($value)
+    protected static function valueToString($value): string
     {
         if (null === $value) {
             return 'null';
