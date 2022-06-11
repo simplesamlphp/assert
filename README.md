@@ -40,3 +40,6 @@ Method                                         | Description
 `validDateTime($value, $message = '')`         | Check that a value is a valid ISO8601 compliant DateTime
 `validDateTimeZulu($value, $message = '')`     | Check thta a value is a valid ISO8601 compliant DateTime in the UTC timezone
 `notInArray($value, $values, $message = '')`   | Check that a value is _NOT_ one of a list of values
+`validURI($value, $message = '')`              | Check that a value is a valid RFC3986 URI
+`validURL($value, $message = '')`              | Check that a value is a valid RFC2396 URL
+`validURN($value, $message = '')`              | Check that a value is a valid RFC2141 URN
