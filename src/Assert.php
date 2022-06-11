@@ -314,8 +314,9 @@ use function sprintf;
  */
 final class Assert
 {
-    private static string $base64_regex = '/^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/';
+    private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
 
+    private static string $urn_regex = '/^urn:[a-z0-9][a-z0-9-]{1,31}:([a-z0-9()+,-.:=@;$_!*\']|%(0[1-9a-f]|[1-9a-f][0-9a-f]))+$/i';
 
     /**
      * @param string $name
@@ -442,6 +443,60 @@ final class Assert
                     $message ?: 'Expected none of: %2$s. Got: %s',
                     static::valueToString($value),
                     implode(', ', array_map(['static', 'valueToString'], $values))
+                )
+            );
+        }
+    }
+
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    private static function validURN(string $value, string $message = ''): void
+    {
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    $message ?: '\'%s\' is not a valid RFC2141 compliant URN',
+                    $value
+                )
+            );
+        }
+    }
+
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    private static function validURL(string $value, string $message = ''): void
+    {
+        if (filter_var($value, FILTER_VALIDATE_URL) === false) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
+                    $value
+                )
+            );
+        }
+    }
+
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    private static function validURI(string $value, string $message = ''): void
+    {
+        if (
+            filter_var($value, FILTER_VALIDATE_URL) === false &&
+            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false
+        ) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC2141 compliant URN',
+                    $value
                 )
             );
         }
