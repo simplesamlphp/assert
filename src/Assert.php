@@ -325,10 +325,10 @@ final class Assert
     {
         // Handle Exception-parameter
         $exception = AssertionFailedException::class;
+
         $last = end($arguments);
         if (is_string($last) && class_exists($last) && is_subclass_of($last, Throwable::class)) {
             $exception = $last;
-
             array_pop($arguments);
         }
 
@@ -338,7 +338,6 @@ final class Assert
             } else {
                 call_user_func_array([Webmozart::class, $name], $arguments);
             }
-            return;
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
         }
