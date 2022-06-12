@@ -25,6 +25,13 @@ assertion fails. If you don't pass the the extra parameter, we will throw the
 more generic `AssertionFailedException` (which in our opinion is still better
 than the even _more_ generic `InvalidArgumentException`).
 
+We also felt that `InvalidArgumentException` is incorrect to use in this case.
+This exception was intended by PHP to be thrown when a function parameter is of
+the wrong type. Our custom `AssertionFailedException` therefor inherits from
+`UnexpectedValueException` which is intended to verify values against valid
+value sets, possibly during the internal computations of a function. We deem
+this much more appropriate for use in assertions.
+
 ## Custom Assertions
 
 Another reason to fork is the ability to add a few custom assertions that may
