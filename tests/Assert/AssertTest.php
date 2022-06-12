@@ -80,6 +80,69 @@ final class AssertTest extends TestCase
 
 
     /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidURN(): void
+    {
+        Assert::validURN('urn:x-simplesamlphp:phpunit', AssertionFailedException::class);
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidURL(): void
+    {
+        Assert::validURL('https://www.simplesamlphp.org', AssertionFailedException::class);
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidURIwithURL(): void
+    {
+        Assert::validURI('https://www.simplesamlphp.org', AssertionFailedException::class);
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidURIwithURN(): void
+    {
+        Assert::validURI('urn:x-simplesamlphp:phpunit', AssertionFailedException::class);
+    }
+
+
+    /**
+     */
+    public function testInvalidURN(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::validURN('stupid value', AssertionFailedException::class);
+    }
+
+
+    /**
+     */
+    public function testInvalidURL(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::validURL('stupid value', AssertionFailedException::class);
+    }
+
+
+    /**
+     */
+    public function testInvalidURI(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::validURI('stupid value', AssertionFailedException::class);
+    }
+
+
+    /**
      */
     public function testInvalidDateTime(): void
     {
