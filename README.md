@@ -27,7 +27,7 @@ than the even _more_ generic `InvalidArgumentException`).
 
 We also felt that `InvalidArgumentException` is incorrect to use in this case.
 This exception was intended by PHP to be thrown when a function parameter is of
-the wrong type. Our custom `AssertionFailedException` therefor inherits from
+the wrong type. Our custom `AssertionFailedException` therefore inherits from
 `UnexpectedValueException` which is intended to verify values against valid
 value sets, possibly during the internal computations of a function. We deem
 this much more appropriate for use in assertions.
@@ -45,7 +45,7 @@ Method                                         | Description
 -----------------------------------------------|-----------------------------------------------------------------------------
 `stringPlausibleBase64($value, $message = '')` | Check that a value is plausibly base64  
 `validDateTime($value, $message = '')`         | Check that a value is a valid ISO8601 compliant DateTime
-`validDateTimeZulu($value, $message = '')`     | Check thta a value is a valid ISO8601 compliant DateTime in the UTC timezone
+`validDateTimeZulu($value, $message = '')`     | Check that a value is a valid ISO8601 compliant DateTime in the UTC timezone
 `notInArray($value, $values, $message = '')`   | Check that a value is _NOT_ one of a list of values
 `validURI($value, $message = '')`              | Check that a value is a valid RFC3986 URI
 `validURL($value, $message = '')`              | Check that a value is a valid RFC2396 URL
