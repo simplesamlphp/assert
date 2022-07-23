@@ -367,6 +367,8 @@ final class Assert
 
         if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$base64_regex]]) === false) {
             $result = false;
+        } elseif (strlen($value) % 4 !== 0) {
+            $result = false;
         } else {
             $decoded = base64_decode($value, true);
             if ($decoded === false) {
