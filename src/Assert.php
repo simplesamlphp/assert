@@ -381,7 +381,7 @@ final class Assert
         if ($result === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid Base64 encoded string',
-                $value
+                $value,
             ));
         }
     }
@@ -396,7 +396,7 @@ final class Assert
         if (DateTime::createFromFormat(DateTime::ISO8601, $value) === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid DateTime',
-                $value
+                $value,
             ));
         }
     }
@@ -412,12 +412,12 @@ final class Assert
         if ($dateTime === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid DateTime',
-                $value
+                $value,
             ));
         } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
-                $value
+                $value,
             ));
         }
     }
@@ -434,7 +434,7 @@ final class Assert
             throw new InvalidArgumentException(sprintf(
                 $message ?: 'Expected none of: %2$s. Got: %s',
                 static::valueToString($value),
-                implode(', ', array_map(['static', 'valueToString'], $values))
+                implode(', ', array_map(['static', 'valueToString'], $values)),
             ));
         }
     }
@@ -449,7 +449,7 @@ final class Assert
         if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC8141 compliant URN',
-                $value
+                $value,
             ));
         }
     }
@@ -464,7 +464,7 @@ final class Assert
         if (filter_var($value, FILTER_VALIDATE_URL) === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
-                $value
+                $value,
             ));
         }
     }
@@ -482,7 +482,7 @@ final class Assert
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC8141 compliant URN',
-                $value
+                $value,
             ));
         }
     }
