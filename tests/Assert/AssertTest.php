@@ -227,7 +227,7 @@ final class AssertTest extends TestCase
     {
         $stringable = new TestClass('phpunit');
 
-        $dateTime = new DateTimeImmutable('2000-01-01');
+        $dateTime = new DateTimeImmutable('2000-01-01T00:00:00+00:00');
 
         $otherObject = new StdClass();
 
