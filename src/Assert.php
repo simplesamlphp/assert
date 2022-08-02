@@ -379,12 +379,10 @@ final class Assert
         }
 
         if ($result === false) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: '\'%s\' is not a valid Base64 encoded string',
-                    $value
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid Base64 encoded string',
+                $value
+            ));
         }
     }
 
@@ -396,12 +394,10 @@ final class Assert
     private static function validDateTime(string $value, string $message = ''): void
     {
         if (DateTime::createFromFormat(DateTime::ISO8601, $value) === false) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: '\'%s\' is not a valid DateTime',
-                    $value
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid DateTime',
+                $value
+            ));
         }
     }
 
@@ -414,19 +410,15 @@ final class Assert
     {
         $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $value);
         if ($dateTime === false) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: '\'%s\' is not a valid DateTime',
-                    $value
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid DateTime',
+                $value
+            ));
         } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
-                    $value
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
+                $value
+            ));
         }
     }
 
@@ -439,13 +431,11 @@ final class Assert
     private static function notInArray($value, array $values, string $message = ''): void
     {
         if (in_array($value, $values, true)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: 'Expected none of: %2$s. Got: %s',
-                    static::valueToString($value),
-                    implode(', ', array_map(['static', 'valueToString'], $values))
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: 'Expected none of: %2$s. Got: %s',
+                static::valueToString($value),
+                implode(', ', array_map(['static', 'valueToString'], $values))
+            ));
         }
     }
 
@@ -472,12 +462,10 @@ final class Assert
     private static function validURL(string $value, string $message = ''): void
     {
         if (filter_var($value, FILTER_VALIDATE_URL) === false) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
-                    $value
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
+                $value
+            ));
         }
     }
 
@@ -492,12 +480,10 @@ final class Assert
             filter_var($value, FILTER_VALIDATE_URL) === false &&
             filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false
         ) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC8141 compliant URN',
-                    $value
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC8141 compliant URN',
+                $value
+            ));
         }
     }
 
