@@ -316,7 +316,7 @@ final class Assert
 {
     private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
 
-    private static string $urn_regex = '/^urn:[a-z0-9][a-z0-9-]{1,31}:([a-z0-9()+,-.:=@;$_!*\']|%(0[1-9a-f]|[1-9a-f][0-9a-f]))+$/i';
+    private static string $urn_regex = '/\A(?i:urn:(?!urn:)(?<nid>[a-z0-9][a-z0-9-]{1,31}):(?<nss>(?:[-a-z0-9()+,.:=@;$_!*\'&~\/]|%[0-9a-f]{2})+)(?:\?\+(?<rcomponent>.*?))?(?:\?=(?<qcomponent>.*?))?(?:#(?<fcomponent>.*?))?)\z/';
 
     /**
      * @param string $name
@@ -457,12 +457,10 @@ final class Assert
     private static function validURN(string $value, string $message = ''): void
     {
         if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    $message ?: '\'%s\' is not a valid RFC2141 compliant URN',
-                    $value
-                )
-            );
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid RFC8141 compliant URN',
+                $value
+            ));
         }
     }
 
@@ -496,7 +494,7 @@ final class Assert
         ) {
             throw new InvalidArgumentException(
                 sprintf(
-                    $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC2141 compliant URN',
+                    $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC8141 compliant URN',
                     $value
                 )
             );
