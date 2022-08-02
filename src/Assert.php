@@ -428,7 +428,7 @@ final class Assert
      * @param array $values
      * @param string $message
      */
-    private static function notInArray($value, array $values, string $message = ''): void
+    private static function notInArray(mixed $value, array $values, string $message = ''): void
     {
         if (in_array($value, $values, true)) {
             throw new InvalidArgumentException(sprintf(
@@ -493,7 +493,7 @@ final class Assert
      *
      * @return string
      */
-    protected static function valueToString($value): string
+    protected static function valueToString(mixed $value): string
     {
         if (null === $value) {
             return 'null';
