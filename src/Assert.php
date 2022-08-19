@@ -25,7 +25,9 @@ use function is_string;
 use function is_object;
 use function is_resource;
 use function is_subclass_of;
+use function lcfirst;
 use function method_exists;
+use function preg_match;
 use function sprintf;
 
 /**
@@ -341,10 +343,18 @@ final class Assert
         }
 
         try {
-            if (method_exists(static::class, $name)) {
-                call_user_func_array([static::class, $name], $arguments);
-            } else {
+            // Putting Webmozart first, since the most calls will be to their native assertions
+            if (method_exists(Webmozart::class, $name)) {
                 call_user_func_array([Webmozart::class, $name], $arguments);
+            } else if (method_exists(static::class, $name)) {
+                call_user_func_array([static::class, $name], $arguments);
+            } else if (preg_match('/^nullOr(.*)$/i', $name, $matches)) {
+                $method = lcfirst($matches[1]);
+                if (method_exists(static::class, $method)) {
+                    call_user_func_array([static::class, 'nullOr'], [$method, $arguments]);
+                }
+            } else {
+                throw new BadMethodCallException();
             }
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
@@ -359,6 +369,20 @@ final class Assert
      *         Assertions marked `public` are called directly and will                 *
      *          not handle any custom exception passed to it.                          *
      ***********************************************************************************/
+
+
+    /**
+     * nullOr* for our custom assertions
+     *
+     * @param string $method
+     * @param array $arguments
+     * @return void
+     */
+    private static function nullOr(string $method, array $arguments): void
+    {
+        $value = reset($arguments);
+        ($value === null) || call_user_func_array([static::class, $method], $arguments);
+    }
 
 
     /**

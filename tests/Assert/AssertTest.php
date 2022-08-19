@@ -64,6 +64,20 @@ final class AssertTest extends TestCase
     /**
      * @doesNotPerformAssertions
      */
+    public function testNullOrCustomAssertionWorks(): void
+    {
+        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHBocA==', AssertionFailedException::class);
+        Assert::nullOrStringPlausibleBase64(null, AssertionFailedException::class);
+
+        // Also make sure it keeps working for Webmozart's native assertions
+        Assert::nullOrString(null);
+        Assert::nullOrString('test');
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testValidBase64(): void
     {
         Assert::stringPlausibleBase64('U2ltcGxlU0FNTHBocA==', AssertionFailedException::class);
