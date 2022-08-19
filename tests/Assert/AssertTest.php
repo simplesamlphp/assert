@@ -109,6 +109,15 @@ final class AssertTest extends TestCase
     /**
      * @doesNotPerformAssertions
      */
+    public function testValidURIwithURIReference(): void
+    {
+        Assert::validURI('#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6', AssertionFailedException::class);
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testValidURIwithURN(): void
     {
         Assert::validURI('urn:x-simplesamlphp:phpunit', AssertionFailedException::class);

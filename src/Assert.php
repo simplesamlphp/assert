@@ -320,7 +320,10 @@ final class Assert
 
     private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
 
+    private static string $uri_same_document_regex = '/^#([a-z0-9-._~!$&\'()*+,;=:!\/?]|%[a-f0-9]{2})*$/i';
+
     private static string $urn_regex = '/\A(?i:urn:(?!urn:)(?<nid>[a-z0-9][a-z0-9-]{1,31}):(?<nss>(?:[-a-z0-9()+,.:=@;$_!*\'&~\/]|%[0-9a-f]{2})+)(?:\?\+(?<rcomponent>.*?))?(?:\?=(?<qcomponent>.*?))?(?:#(?<fcomponent>.*?))?)\z/';
+
 
     /**
      * @param string $name
@@ -482,10 +485,11 @@ final class Assert
     {
         if (
             filter_var($value, FILTER_VALIDATE_URL) === false &&
-            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false
+            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false &&
+            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$uri_same_document_regex]]) === false
         ) {
             throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC8141 compliant URN',
+                $message ?: '\'%s\' is not a valid RFC2396 compliant URL, not a valid RFC8141 compliant URN, nor is it a valid URI reference',
                 $value
             ));
         }
