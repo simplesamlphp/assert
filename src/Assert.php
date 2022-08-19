@@ -314,6 +314,10 @@ use function sprintf;
  */
 final class Assert
 {
+    private static string $qname_regex = '/^[a-zA-Z_][\w.-]*:[a-zA-Z_][\w.-]*$/';
+
+    private static string $ncname_regex = '/^[a-zA-Z_][\w.-]*$/';
+
     private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
 
     private static string $urn_regex = '/\A(?i:urn:(?!urn:)(?<nid>[a-z0-9][a-z0-9-]{1,31}):(?<nss>(?:[-a-z0-9()+,.:=@;$_!*\'&~\/]|%[0-9a-f]{2})+)(?:\?\+(?<rcomponent>.*?))?(?:\?=(?<qcomponent>.*?))?(?:#(?<fcomponent>.*?))?)\z/';
@@ -482,6 +486,36 @@ final class Assert
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC8141 compliant URN',
+                $value
+            ));
+        }
+    }
+
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    private static function validNCName(string $value, string $message = ''): void
+    {
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$ncname_regex]]) === false) {
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid non-colonized name (NCName)',
+                $value
+            ));
+        }
+    }
+
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    private static function validQName(string $value, string $message = ''): void
+    {
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$qname_regex]]) === false) {
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid qualified name (QName)',
                 $value
             ));
         }

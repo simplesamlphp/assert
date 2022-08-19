@@ -206,6 +206,42 @@ final class AssertTest extends TestCase
 
 
     /**
+     */
+    public function testInvalidNCName(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::validNCName('te:st');
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidNCName(): void
+    {
+        Assert::validNCName('test');
+    }
+
+
+    /**
+     */
+    public function testInvalidQName(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::validQName('test');
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidQName(): void
+    {
+        Assert::validQName('a:test');
+    }
+
+
+    /**
      * @dataProvider provideValue
      * @param mixed $value
      * @param string $expected
