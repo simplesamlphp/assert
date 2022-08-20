@@ -513,7 +513,7 @@ final class Assert
             filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$uri_same_document_regex]]) === false
         ) {
             throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC2396 compliant URL, not a valid RFC8141 compliant URN, nor is it a valid URI reference',
+                $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
                 $value
             ));
         }
