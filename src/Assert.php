@@ -315,6 +315,8 @@ use function sprintf;
  */
 final class Assert
 {
+    private static string $duration_regex = '/^(-?)P(?=.)((\d+)Y)?((\d+)M)?((\d+)D)?(T(?=.)((\d+)H)?((\d+)M)?(\d*(\.\d+)?S)?)?$/i';
+
     private static string $qname_regex = '/^[a-zA-Z_][\w.-]*:[a-zA-Z_][\w.-]*$/';
 
     private static string $ncname_regex = '/^[a-zA-Z_][\w.-]*$/';
@@ -381,6 +383,20 @@ final class Assert
     {
         $value = reset($arguments);
         ($value === null) || call_user_func_array([static::class, $method], $arguments);
+    }
+
+
+    /**
+     * @param string $value
+     */
+    private static function validDuration(string $value, string $message = ''): void
+    {
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$duration_regex]]) === false) {
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid xs:duration',
+                $value
+            ));
+        }
     }
 
 
