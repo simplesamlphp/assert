@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\Assert;
 
 use BadMethodCallException;
-use DateTime;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use Throwable;
@@ -424,7 +423,10 @@ final class Assert
      */
     private static function validDateTime(string $value, string $message = ''): void
     {
-        if (DateTime::createFromFormat(DateTime::ISO8601, $value) === false) {
+        if (
+            DateTimeImmutable::createFromFormat(DateTimeImmutable::ISO8601, $value) === false &&
+            DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339_EXTENDED, $value) === false
+        ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid DateTime',
                 $value
@@ -439,7 +441,10 @@ final class Assert
      */
     private static function validDateTimeZulu(string $value, string $message = ''): void
     {
-        $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $value);
+        $dateTime1 = DateTimeImmutable::createFromFormat(DateTimeImmutable::ISO8601, $value);
+        $dateTime2 = DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339_EXTENDED, $value);
+
+        $dateTime = $dateTime1 ?: $dateTime2;
         if ($dateTime === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid DateTime',

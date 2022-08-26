@@ -184,6 +184,15 @@ final class AssertTest extends TestCase
 
 
     /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidSubSecondDateTime(): void
+    {
+        Assert::validDateTime('2016-07-27T19:30:00.123+05:00', AssertionFailedException::class);
+    }
+
+
+    /**
      */
     public function testInvalidDateTimeZulu(): void
     {
@@ -207,6 +216,24 @@ final class AssertTest extends TestCase
     public function testValidDateTimeZulu(): void
     {
         Assert::validDateTimeZulu('2016-07-27T19:30:00Z', AssertionFailedException::class);
+    }
+
+
+    /**
+     */
+    public function testValidSubSecondDateTimeNotZulu(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        Assert::validDateTimeZulu('2016-07-27T19:30:00.123+05:00', AssertionFailedException::class);
+    }
+
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidSubSecondDateTimeZulu(): void
+    {
+        Assert::validDateTimeZulu('2016-07-27T19:30:00.123Z', AssertionFailedException::class);
     }
 
 
