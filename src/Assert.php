@@ -564,7 +564,7 @@ final class Assert
     {
         if (
             filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$qname_regex]]) === false &&
-            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$ncame_regex]]) === false
+            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$ncname_regex]]) === false
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid qualified name (QName)',
