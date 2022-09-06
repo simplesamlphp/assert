@@ -17,7 +17,7 @@ use SimpleSAML\Assert\AssertionFailedException;
 final class DurationTest extends TestCase
 {
     /**
-     * @dataProvider provideInvalidDuration
+     * @dataProvider provideDuration
      * @param boolean $shouldPass
      * @param string $duration
      */
@@ -35,7 +35,7 @@ final class DurationTest extends TestCase
     /**
      * @return array
      */
-    public function provideInvalidDuration(): array
+    public function provideDuration(): array
     {
         return [
             [true, 'P2Y6M5DT12H35M30S'],
