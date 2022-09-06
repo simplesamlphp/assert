@@ -287,7 +287,7 @@ final class AssertTest extends TestCase
     public function testInvalidQName(): void
     {
         $this->expectException(AssertionFailedException::class);
-        Assert::validQName('test');
+        Assert::validQName('1test');
     }
 
 
