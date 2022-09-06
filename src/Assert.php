@@ -484,10 +484,14 @@ final class Assert
     private static function notInArray($value, array $values, string $message = ''): void
     {
         if (in_array($value, $values, true)) {
+            $callable = function ($value) {
+                return self::valueToString($value);
+            };
+
             throw new InvalidArgumentException(sprintf(
                 $message ?: 'Expected none of: %2$s. Got: %s',
-                static::valueToString($value),
-                implode(', ', array_map(['static', 'valueToString'], $values))
+                self::valueToString($value),
+                implode(', ', array_map($callable, $values)),
             ));
         }
     }
