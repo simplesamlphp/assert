@@ -12,6 +12,7 @@ use SimpleSAML\Assert\AssertionFailedException;
  * Class \SimpleSAML\Assert\Assert
  *
  * @package simplesamlphp/saml2
+ * @covers \SimpleSAML\Assert\Assert::__callStatic
  * @covers \SimpleSAML\Assert\Assert::validURI
  * @covers \SimpleSAML\Assert\Assert::validURL
  * @covers \SimpleSAML\Assert\Assert::validURN

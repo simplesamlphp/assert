@@ -12,6 +12,7 @@ use SimpleSAML\Assert\AssertionFailedException;
  * Class \SimpleSAML\Assert\Assert
  *
  * @package simplesamlphp/saml2
+ * @covers \SimpleSAML\Assert\Assert::__callStatic
  * @covers \SimpleSAML\Assert\Assert::stringPlausibleBase64
  */
 final class Base64Test extends TestCase

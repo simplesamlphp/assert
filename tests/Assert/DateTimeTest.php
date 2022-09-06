@@ -12,6 +12,7 @@ use SimpleSAML\Assert\AssertionFailedException;
  * Class \SimpleSAML\Assert\Assert
  *
  * @package simplesamlphp/saml2
+ * @covers \SimpleSAML\Assert\Assert::__callStatic
  * @covers \SimpleSAML\Assert\Assert::validDateTime
  * @covers \SimpleSAML\Assert\Assert::validDateTimeZulu
  */

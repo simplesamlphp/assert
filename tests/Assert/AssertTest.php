@@ -34,6 +34,7 @@ final class AssertTest extends TestCase
         Assert::integer(1);
     }
 
+
     /**
      */
     public function testAssertionFailingThrowsException(): void
@@ -62,16 +63,19 @@ final class AssertTest extends TestCase
 
 
     /**
-     * @doesNotPerformAssertions
      */
     public function testNullOrCustomAssertionWorks(): void
     {
-        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHBocA==', AssertionFailedException::class);
-        Assert::nullOrStringPlausibleBase64(null, AssertionFailedException::class);
+        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHBocA==');
+        Assert::nullOrStringPlausibleBase64(null);
 
         // Also make sure it keeps working for Webmozart's native assertions
         Assert::nullOrString(null);
         Assert::nullOrString('test');
+
+        // Test a failure for coverage
+        $this->expectException(AssertionFailedException::class);
+        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHocA==');
     }
 
 
