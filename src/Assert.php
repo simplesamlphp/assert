@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Assert;
 
 use BadMethodCallException;
+use DateTime;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use Throwable;
