@@ -61,6 +61,7 @@ final class DateTimeTest extends TestCase
             'offset' => [true, '2016-07-27T19:30:00+05:00'],
             'zulu' => [true, '2016-07-27T19:30:00Z'],
             'bogus' => [false, '&*$(#&^@!(^%$'],
+            'whitespace' => [false, ' '],
         ];
     }
 
@@ -76,6 +77,7 @@ final class DateTimeTest extends TestCase
             'sub-second offset' => [false, '2016-07-27T19:30:00.123+05:00'],
             'offset' => [false, '2016-07-27T19:30:00+05:00'],
             'bogus' => [false, '&*$(#&^@!(^%$'],
+            'whitespace' => [false, ' '],
         ];
     }
 }
