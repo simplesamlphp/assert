@@ -347,15 +347,19 @@ final class Assert
             // Putting Webmozart first, since the most calls will be to their native assertions
             if (method_exists(Webmozart::class, $name)) {
                 call_user_func_array([Webmozart::class, $name], $arguments);
-            } else if (method_exists(static::class, $name)) {
+            } elseif (method_exists(static::class, $name)) {
                 call_user_func_array([static::class, $name], $arguments);
-            } else if (preg_match('/^nullOr(.*)$/i', $name, $matches)) {
+            } elseif (preg_match('/^nullOr(.*)$/i', $name, $matches)) {
                 $method = lcfirst($matches[1]);
-                if (method_exists(static::class, $method)) {
-                    call_user_func_array([static::class, 'nullOr'], [$method, $arguments]);
+                if (method_exists(Webmozart::class, $method)) {
+                    call_user_func_array([static::class, 'nullOr'], [[Webmozart::class, $method], $arguments]);
+                } elseif (method_exists(static::class, $method)) {
+                    call_user_func_array([static::class, 'nullOr'], [[static::class, $method], $arguments]);
+                } else {
+                    throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
                 }
             } else {
-                throw new BadMethodCallException();
+                throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $name));
             }
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
@@ -375,14 +379,14 @@ final class Assert
     /**
      * nullOr* for our custom assertions
      *
-     * @param string $method
+     * @param callable $method
      * @param array $arguments
      * @return void
      */
-    private static function nullOr(string $method, array $arguments): void
+    private static function nullOr(callable $method, array $arguments): void
     {
         $value = reset($arguments);
-        ($value === null) || call_user_func_array([static::class, $method], $arguments);
+        ($value === null) || call_user_func_array($method, $arguments);
     }
 
 
