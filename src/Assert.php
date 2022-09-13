@@ -384,7 +384,7 @@ final class Assert
      * @param array $arguments
      * @return void
      */
-    private static function nullOr(callable $method, array $arguments): void
+    private static function nullOr(array $method, array $arguments): void
     {
         $value = reset($arguments);
         ($value === null) || call_user_func_array($method, $arguments);
