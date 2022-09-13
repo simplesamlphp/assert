@@ -45,20 +45,6 @@ trait CustomAssertionTrait
 
 
     /**
-     * nullOr* for our custom assertions
-     *
-     * @param string $method
-     * @param array $arguments
-     * @return void
-     */
-    private static function nullOr(string $method, array $arguments): void
-    {
-        $value = reset($arguments);
-        ($value === null) || call_user_func_array([static::class, $method], $arguments);
-    }
-
-
-    /**
      * @param string $value
      */
     private static function validDuration(string $value, string $message = ''): void

@@ -335,17 +335,33 @@ final class Assert
                 call_user_func_array([static::class, $name], $arguments);
             } elseif (preg_match('/^nullOr(.*)$/i', $name, $matches)) {
                 $method = lcfirst($matches[1]);
-                if (method_exists(static::class, $method)) {
-                    call_user_func_array([static::class, 'nullOr'], [$method, $arguments]);
+                if (method_exists(Webmozart::class, $method)) {
+                    call_user_func_array([static::class, 'nullOr'], [[Webmozart::class, $method], $arguments]);
+                } elseif (method_exists(static::class, $method)) {
+                    call_user_func_array([static::class, 'nullOr'], [[static::class, $method], $arguments]);
                 } else {
-                    throw new BadMethodCallException($method);
+                    throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
                 }
             } else {
-                throw new BadMethodCallException($name);
+                throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $name));
             }
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
         }
+    }
+
+
+    /**
+     * Handle nullOr* for either Webmozart or for our custom assertions
+     *
+     * @param callable $method
+     * @param array $arguments
+     * @return void
+     */
+    private static function nullOr(callable $method, array $arguments): void
+    {
+        $value = reset($arguments);
+        ($value === null) || call_user_func_array($method, $arguments);
     }
 
 

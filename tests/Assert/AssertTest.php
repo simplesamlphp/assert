@@ -64,6 +64,15 @@ final class AssertTest extends TestCase
 
     /**
      */
+    public function testUnknownNullOrAssertionRaisesBadMethodCallException(): void
+    {
+        $this->expectException(BadMethodCallException::class);
+        Assert::nullOrThisAssertionDoesNotExist('a', 'b', LogicException::class);
+    }
+
+
+    /**
+     */
     public function testNullOrCustomAssertionWorks(): void
     {
         Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHBocA==');
