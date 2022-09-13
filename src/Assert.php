@@ -337,9 +337,11 @@ final class Assert
                 $method = lcfirst($matches[1]);
                 if (method_exists(static::class, $method)) {
                     call_user_func_array([static::class, 'nullOr'], [$method, $arguments]);
+                } else {
+                    throw new BadMethodCallException($method);
                 }
             } else {
-                throw new BadMethodCallException();
+                throw new BadMethodCallException($name);
             }
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
