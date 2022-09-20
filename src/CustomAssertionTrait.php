@@ -141,8 +141,8 @@ trait CustomAssertionTrait
     private static function notInArray($value, array $values, string $message = ''): void
     {
         if (in_array($value, $values, true)) {
-            $callable = function ($value) {
-                return self::valueToString($value);
+            $callable = /** @param mixed $val */function ($val) {
+                return self::valueToString($val);
             };
 
             throw new InvalidArgumentException(sprintf(

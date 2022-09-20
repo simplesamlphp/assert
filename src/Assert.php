@@ -397,7 +397,7 @@ final class Assert
     }
 
 
-    /*
+    /**
      * @param mixed $value
      *
      * @return string
