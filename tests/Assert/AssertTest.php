@@ -73,6 +73,15 @@ final class AssertTest extends TestCase
 
     /**
      */
+    public function testUnknownAllAssertionRaisesBadMethodCallException(): void
+    {
+        $this->expectException(BadMethodCallException::class);
+        Assert::allThisAssertionDoesNotExist('a', 'b', LogicException::class);
+    }
+
+
+    /**
+     */
     public function testNullOrCustomAssertionWorks(): void
     {
         Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHBocA==');
@@ -85,6 +94,21 @@ final class AssertTest extends TestCase
         // Test a failure for coverage
         $this->expectException(AssertionFailedException::class);
         Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHocA==');
+    }
+
+
+    /**
+     */
+    public function testAllCustomAssertionWorks(): void
+    {
+        Assert::allStringPlausibleBase64(['U2ltcGxlU0FNTHBocA==', 'dGVzdA==']);
+
+        // Also make sure it keeps working for Webmozart's native assertions
+        Assert::allString(['test', 'phpunit']);
+
+        // Test a failure for coverage
+        $this->expectException(AssertionFailedException::class);
+        Assert::allStringPlausibleBase64(['U2ltcGxlU0FNTHocA==', null]);
     }
 
 

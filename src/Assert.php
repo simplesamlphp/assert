@@ -11,6 +11,8 @@ use InvalidArgumentException;
 use Throwable;
 use Webmozart\Assert\Assert as Webmozart;
 
+use function array_pop;
+use function array_unshift;
 use function call_user_func_array;
 use function end;
 use function get_class;
@@ -22,6 +24,7 @@ use function is_subclass_of;
 use function lcfirst;
 use function method_exists;
 use function preg_match;
+use function strval;
 
 /**
  * Webmozart\Assert wrapper class
@@ -331,14 +334,25 @@ final class Assert
             // Putting Webmozart first, since the most calls will be to their native assertions
             if (method_exists(Webmozart::class, $name)) {
                 call_user_func_array([Webmozart::class, $name], $arguments);
+                return;
             } elseif (method_exists(static::class, $name)) {
                 call_user_func_array([static::class, $name], $arguments);
+                return;
             } elseif (preg_match('/^nullOr(.*)$/i', $name, $matches)) {
                 $method = lcfirst($matches[1]);
                 if (method_exists(Webmozart::class, $method)) {
                     call_user_func_array([static::class, 'nullOr'], [[Webmozart::class, $method], $arguments]);
                 } elseif (method_exists(static::class, $method)) {
                     call_user_func_array([static::class, 'nullOr'], [[static::class, $method], $arguments]);
+                } else {
+                    throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
+                }
+            } elseif (preg_match('/^all(.*)$/i', $name, $matches)) {
+                $method = lcfirst($matches[1]);
+                if (method_exists(Webmozart::class, $method)) {
+                    call_user_func_array([static::class, 'all'], [[Webmozart::class, $method], $arguments]);
+                } elseif (method_exists(static::class, $method)) {
+                    call_user_func_array([static::class, 'all'], [[static::class, $method], $arguments]);
                 } else {
                     throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
                 }
@@ -366,6 +380,24 @@ final class Assert
 
 
     /**
+     * all* for our custom assertions
+     *
+     * @param callable $method
+     * @param array $arguments
+     * @return void
+     */
+    private static function all(callable $method, array $arguments): void
+    {
+        $values = array_pop($arguments);
+        foreach ($values as $value) {
+            $tmp = $arguments;
+            array_unshift($tmp, $value);
+            call_user_func_array($method, $tmp);
+        }
+    }
+
+
+    /*
      * @param mixed $value
      *
      * @return string
@@ -408,6 +440,6 @@ final class Assert
             return '"' . $value . '"';
         }
 
-        return (string) $value;
+        return strval($value);
     }
 }
