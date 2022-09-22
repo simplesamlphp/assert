@@ -11,10 +11,8 @@ use InvalidArgumentException;
 use Throwable;
 use Webmozart\Assert\Assert as Webmozart;
 
-use function array_map;
 use function array_pop;
-use function base64_decode;
-use function base64_encode;
+use function array_unshift;
 use function call_user_func_array;
 use function end;
 use function filter_var;
@@ -24,8 +22,10 @@ use function is_string;
 use function is_object;
 use function is_resource;
 use function is_subclass_of;
+use function lcfirst;
 use function method_exists;
-use function sprintf;
+use function preg_match;
+use function strval;
 
 /**
  * Webmozart\Assert wrapper class
@@ -313,9 +313,8 @@ use function sprintf;
  */
 final class Assert
 {
-    private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
+    use CustomAssertionTrait;
 
-    private static string $urn_regex = '/\A(?i:urn:(?!urn:)(?<nid>[a-z0-9][a-z0-9-]{1,31}):(?<nss>(?:[-a-z0-9()+,.:=@;$_!*\'&~\/]|%[0-9a-f]{2})+)(?:\?\+(?<rcomponent>.*?))?(?:\?=(?<qcomponent>.*?))?(?:#(?<fcomponent>.*?))?)\z/';
 
     /**
      * @param string $name
@@ -333,10 +332,33 @@ final class Assert
         }
 
         try {
-            if (method_exists(static::class, $name)) {
-                call_user_func_array([static::class, $name], $arguments);
-            } else {
+            // Putting Webmozart first, since the most calls will be to their native assertions
+            if (method_exists(Webmozart::class, $name)) {
                 call_user_func_array([Webmozart::class, $name], $arguments);
+                return;
+            } elseif (method_exists(static::class, $name)) {
+                call_user_func_array([static::class, $name], $arguments);
+                return;
+            } elseif (preg_match('/^nullOr(.*)$/i', $name, $matches)) {
+                $method = lcfirst($matches[1]);
+                if (method_exists(Webmozart::class, $method)) {
+                    call_user_func_array([static::class, 'nullOr'], [[Webmozart::class, $method], $arguments]);
+                } elseif (method_exists(static::class, $method)) {
+                    call_user_func_array([static::class, 'nullOr'], [[static::class, $method], $arguments]);
+                } else {
+                    throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
+                }
+            } elseif (preg_match('/^all(.*)$/i', $name, $matches)) {
+                $method = lcfirst($matches[1]);
+                if (method_exists(Webmozart::class, $method)) {
+                    call_user_func_array([static::class, 'all'], [[Webmozart::class, $method], $arguments]);
+                } elseif (method_exists(static::class, $method)) {
+                    call_user_func_array([static::class, 'all'], [[static::class, $method], $arguments]);
+                } else {
+                    throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
+                }
+            } else {
+                throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $name));
             }
         } catch (InvalidArgumentException $e) {
             throw new $exception($e->getMessage());
@@ -344,145 +366,34 @@ final class Assert
     }
 
 
-    /***********************************************************************************
-     *  NOTE:  Custom assertions may be added below this line.                         *
-     *         They SHOULD be marked as `private` to ensure the call is forced         *
-     *          through __callStatic().                                                *
-     *         Assertions marked `public` are called directly and will                 *
-     *          not handle any custom exception passed to it.                          *
-     ***********************************************************************************/
-
-
     /**
-     * Note: This test is not bullet-proof but prevents a string containing illegal characters
-     * from being passed and ensures the string roughly follows the correct format for a Base64 encoded string
+     * Handle nullOr* for either Webmozart or for our custom assertions
      *
-     * @param string $value
-     * @param string $message
+     * @param callable $method
+     * @param array $arguments
+     * @return void
      */
-    private static function stringPlausibleBase64(string $value, string $message = ''): void
+    private static function nullOr(callable $method, array $arguments): void
     {
-        $result = true;
-
-        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$base64_regex]]) === false) {
-            $result = false;
-        } elseif (strlen($value) % 4 !== 0) {
-            $result = false;
-        } else {
-            $decoded = base64_decode($value, true);
-            if ($decoded === false) {
-                $result = false;
-            } elseif (base64_encode($decoded) !== $value) {
-                $result = false;
-            }
-        }
-
-        if ($result === false) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid Base64 encoded string',
-                $value,
-            ));
-        }
+        $value = reset($arguments);
+        ($value === null) || call_user_func_array($method, $arguments);
     }
 
 
     /**
-     * @param string $value
-     * @param string $message
+     * all* for our custom assertions
+     *
+     * @param callable $method
+     * @param array $arguments
+     * @return void
      */
-    private static function validDateTime(string $value, string $message = ''): void
+    private static function all(callable $method, array $arguments): void
     {
-        if (DateTime::createFromFormat(DateTime::ISO8601, $value) === false) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid DateTime',
-                $value,
-            ));
-        }
-    }
-
-
-    /**
-     * @param string $value
-     * @param string $message
-     */
-    private static function validDateTimeZulu(string $value, string $message = ''): void
-    {
-        $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $value);
-        if ($dateTime === false) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid DateTime',
-                $value,
-            ));
-        } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
-                $value,
-            ));
-        }
-    }
-
-
-    /**
-     * @param mixed $value
-     * @param array $values
-     * @param string $message
-     */
-    private static function notInArray(mixed $value, array $values, string $message = ''): void
-    {
-        if (in_array($value, $values, true)) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: 'Expected none of: %2$s. Got: %s',
-                static::valueToString($value),
-                implode(', ', array_map(['static', 'valueToString'], $values)),
-            ));
-        }
-    }
-
-
-    /**
-     * @param string $value
-     * @param string $message
-     */
-    private static function validURN(string $value, string $message = ''): void
-    {
-        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC8141 compliant URN',
-                $value,
-            ));
-        }
-    }
-
-
-    /**
-     * @param string $value
-     * @param string $message
-     */
-    private static function validURL(string $value, string $message = ''): void
-    {
-        if (filter_var($value, FILTER_VALIDATE_URL) === false) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
-                $value,
-            ));
-        }
-    }
-
-
-    /**
-     * @param string $value
-     * @param string $message
-     */
-    private static function validURI(string $value, string $message = ''): void
-    {
-        if (
-            filter_var($value, FILTER_VALIDATE_URL) === false &&
-            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC2396 compliant URL, nor a valid RFC8141 compliant URN',
-                $value,
-            ));
+        $values = array_pop($arguments);
+        foreach ($values as $value) {
+            $tmp = $arguments;
+            array_unshift($tmp, $value);
+            call_user_func_array($method, $tmp);
         }
     }
 
@@ -530,6 +441,6 @@ final class Assert
             return '"' . $value . '"';
         }
 
-        return (string) $value;
+        return strval($value);
     }
 }

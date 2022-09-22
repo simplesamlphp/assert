@@ -34,6 +34,7 @@ final class AssertTest extends TestCase
         Assert::integer(1);
     }
 
+
     /**
      */
     public function testAssertionFailingThrowsException(): void
@@ -62,146 +63,52 @@ final class AssertTest extends TestCase
 
 
     /**
-     * @doesNotPerformAssertions
      */
-    public function testValidBase64(): void
+    public function testUnknownNullOrAssertionRaisesBadMethodCallException(): void
     {
-        Assert::stringPlausibleBase64('U2ltcGxlU0FNTHBocA==', AssertionFailedException::class);
+        $this->expectException(BadMethodCallException::class);
+        Assert::nullOrThisAssertionDoesNotExist('a', 'b', LogicException::class);
     }
 
 
     /**
      */
-    public function testInvalidBase64(): void
+    public function testUnknownAllAssertionRaisesBadMethodCallException(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        Assert::allThisAssertionDoesNotExist('a', 'b', LogicException::class);
+    }
+
+
+    /**
+     */
+    public function testNullOrCustomAssertionWorks(): void
+    {
+        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHBocA==');
+        Assert::nullOrStringPlausibleBase64(null);
+
+        // Also make sure it keeps working for Webmozart's native assertions
+        Assert::nullOrString(null);
+        Assert::nullOrString('test');
+
+        // Test a failure for coverage
         $this->expectException(AssertionFailedException::class);
-        Assert::stringPlausibleBase64('&*$(#&^@!(^%$', AssertionFailedException::class);
-    }
-
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testValidURN(): void
-    {
-        Assert::validURN('urn:x-simplesamlphp:phpunit', AssertionFailedException::class);
-    }
-
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testValidURL(): void
-    {
-        Assert::validURL('https://www.simplesamlphp.org', AssertionFailedException::class);
-    }
-
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testValidURIwithURL(): void
-    {
-        Assert::validURI('https://www.simplesamlphp.org', AssertionFailedException::class);
-    }
-
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testValidURIwithURN(): void
-    {
-        Assert::validURI('urn:x-simplesamlphp:phpunit', AssertionFailedException::class);
+        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHocA==');
     }
 
 
     /**
      */
-    public function testInvalidURN(): void
+    public function testAllCustomAssertionWorks(): void
     {
+        Assert::allStringPlausibleBase64(['U2ltcGxlU0FNTHBocA==', 'dGVzdA==']);
+
+        // Also make sure it keeps working for Webmozart's native assertions
+        Assert::allString(['test', 'phpunit']);
+
+        // Test a failure for coverage
         $this->expectException(AssertionFailedException::class);
-        Assert::validURN('stupid value', AssertionFailedException::class);
-    }
-
-
-    /**
-     */
-    public function testInvalidURL(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        Assert::validURL('stupid value', AssertionFailedException::class);
-    }
-
-
-    /**
-     */
-    public function testInvalidURI(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        Assert::validURI('stupid value', AssertionFailedException::class);
-    }
-
-
-    /**
-     */
-    public function testInvalidDateTime(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        Assert::validDateTime('&*$(#&^@!(^%$', AssertionFailedException::class);
-    }
-
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testValidDateTime(): void
-    {
-        Assert::validDateTime('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
-    }
-
-
-    /**
-     */
-    public function testInvalidDateTimeZulu(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        Assert::validDateTimeZulu('&*$(#&^@!(^%$', AssertionFailedException::class);
-    }
-
-
-    /**
-     */
-    public function testValidDateTimeNotZulu(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        Assert::validDateTimeZulu('2016-07-27T19:30:00+05:00', AssertionFailedException::class);
-    }
-
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testValidDateTimeZulu(): void
-    {
-        Assert::validDateTimeZulu('2016-07-27T19:30:00Z', AssertionFailedException::class);
-    }
-
-
-    /**
-     */
-    public function testNotInArrayIfInArray(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        Assert::notInArray(1, [1]);
-    }
-
-
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testNotInArrayIfNotInArray(): void
-    {
-        Assert::notInArray(0, [1]);
+        Assert::allStringPlausibleBase64(['U2ltcGxlU0FNTHocA==', null]);
     }
 
 

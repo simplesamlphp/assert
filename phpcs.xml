@@ -20,5 +20,9 @@
             <property name="lineLimit" value="130"/>
             <property name="absoluteLineLimit" value="130"/>
         </properties>
+
+        <!-- Exclude files with long lines that we cannot immediately fix -->
+        <exclude-pattern>src/Assert.php</exclude-pattern>
+        <exclude-pattern>src/CustomAssertionTrait.php</exclude-pattern>
     </rule>
 </ruleset>
