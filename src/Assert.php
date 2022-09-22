@@ -15,8 +15,9 @@ use function array_pop;
 use function array_unshift;
 use function call_user_func_array;
 use function end;
-use function get_class;
-use function is_array;
+use function filter_var;
+use function implode;
+use function in_array;
 use function is_string;
 use function is_object;
 use function is_resource;
@@ -402,7 +403,7 @@ final class Assert
      *
      * @return string
      */
-    protected static function valueToString($value): string
+    protected static function valueToString(mixed $value): string
     {
         if (null === $value) {
             return 'null';
@@ -422,14 +423,14 @@ final class Assert
 
         if (is_object($value)) {
             if (method_exists($value, '__toString')) {
-                return get_class($value) . ': ' . self::valueToString($value->__toString());
+                return $value::class . ': ' . self::valueToString($value->__toString());
             }
 
             if ($value instanceof DateTime || $value instanceof DateTimeImmutable) {
-                return get_class($value) . ': ' . self::valueToString($value->format('c'));
+                return $value::class . ': ' . self::valueToString($value->format('c'));
             }
 
-            return get_class($value);
+            return $value::class;
         }
 
         if (is_resource($value)) {

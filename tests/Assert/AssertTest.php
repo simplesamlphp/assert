@@ -117,7 +117,7 @@ final class AssertTest extends TestCase
      * @param mixed $value
      * @param string $expected
      */
-    public function testValueToString($value, string $expected): void
+    public function testValueToString(mixed $value, string $expected): void
     {
         $assert = new Assert();
         $method = new ReflectionMethod(Assert::class, 'valueToString');
