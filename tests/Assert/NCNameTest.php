@@ -41,6 +41,7 @@ final class NCNameTest extends TestCase
         return [
             [true, 'Test'],
             [true, '_Test'],
+            [true, '_5425e58e-e799-4884-92cc-ca64ecede32f'], // prefixed v4 UUID
             [false, 'Te*st'],
             [false, '1Test'],
             [false, 'Te:st'],
