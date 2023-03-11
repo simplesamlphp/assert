@@ -43,7 +43,8 @@ jobs:
         # https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          # Should be the higest supported version, so we can use the newest tools
+          php-version: '8.2'
           tools: composer:v2
           extensions: ctype, spl
 
@@ -103,6 +104,7 @@ jobs:
         # https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
+          # Should be the lowest supported version
           php-version: '8.0'
           extensions: ctype, spl
           tools: composer:v2
@@ -183,19 +185,19 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Run unit tests with coverage
-        if: ${{ matrix.php-versions == '8.1' }}
+        if: ${{ matrix.php-versions == '8.2' }}
         run: vendor/bin/phpunit
 
       - name: Run unit tests (no coverage)
-        if: ${{ matrix.php-versions != '8.1' }}
+        if: ${{ matrix.php-versions != '8.2' }}
         run: vendor/bin/phpunit --no-coverage
 
       - name: Save coverage data
-        if: ${{ matrix.php-versions == '8.1' }}
+        if: ${{ matrix.php-versions == '8.2' }}
         uses: actions/upload-artifact@v3
         with:
           name: coverage-data
-          path: ${{ github.workspace }}/build
+          path: ${{ github.workspace }}
 
   unit-tests-windows:
     name: "Syntax and unit tests, PHP ${{ matrix.php-versions }}, ${{ matrix.operating-system }}"
@@ -255,7 +257,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: coverage-data
-          path: ${{ github.workspace }}/build
+          path: ${{ github.workspace }}
 
       - name: Codecov
         uses: codecov/codecov-action@v3
