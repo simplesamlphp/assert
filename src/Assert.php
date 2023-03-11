@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Assert;
 
-use BadMethodCallException;
+use BadMethodCallException; // Requires ext-spl
 use DateTime;
 use DateTimeImmutable;
-use InvalidArgumentException;
+use InvalidArgumentException; // Requires ext-spl
 use Throwable;
 use Webmozart\Assert\Assert as Webmozart;
 

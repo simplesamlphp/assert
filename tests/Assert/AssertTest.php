@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
-use BadMethodCallException;
+use BadMethodCallException; // Requires ext-spl
 use DateTimeImmutable;
-use ArrayIterator;
-use LogicException;
+use ArrayIterator; // Requires ext-spl
+use LogicException; // Requires ext-spl
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use SimpleSAML\Assert\Assert;
