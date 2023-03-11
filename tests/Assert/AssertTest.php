@@ -13,7 +13,7 @@ use ReflectionMethod;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\Utils\TestClass;
-use StdClass;
+use stdClass;
 
 use function getcwd;
 use function opendir;
@@ -136,7 +136,7 @@ final class AssertTest extends TestCase
 
         $dateTime = new DateTimeImmutable('2000-01-01T00:00:00+00:00');
 
-        $otherObject = new StdClass();
+        $otherObject = new stdClass();
 
         $resource = opendir(getcwd());
 

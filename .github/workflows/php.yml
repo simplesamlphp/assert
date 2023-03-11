@@ -71,7 +71,6 @@ jobs:
         run: php vendor/simplesamlphp/simplesamlphp-test-framework/tools/phpcs
 
       - name: Psalm
-        continue-on-error: true
         run: |
           php vendor/simplesamlphp/simplesamlphp-test-framework/tools/psalm \
           -c psalm.xml \
