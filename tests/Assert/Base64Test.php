@@ -36,7 +36,7 @@ final class Base64Test extends TestCase
     /**
      * @return array
      */
-    public function provideBase64(): array
+    public static function provideBase64(): array
     {
         return [
             'valid' => [true, 'U2ltcGxlU0FNTHBocA=='],

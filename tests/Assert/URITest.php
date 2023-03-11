@@ -70,7 +70,7 @@ final class URITest extends TestCase
     /**
      * @return array
      */
-    public function provideURI(): array
+    public static function provideURI(): array
     {
         return [
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],
@@ -84,7 +84,7 @@ final class URITest extends TestCase
     /**
      * @return array
      */
-    public function provideURL(): array
+    public static function provideURL(): array
     {
         return [
             'url' => [true, 'https://www.simplesamlphp.org'],
@@ -98,7 +98,7 @@ final class URITest extends TestCase
     /**
      * @return array
      */
-    public function provideURN(): array
+    public static function provideURN(): array
     {
         return [
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],

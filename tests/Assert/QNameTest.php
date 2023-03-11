@@ -36,7 +36,7 @@ final class QNameTest extends TestCase
     /**
      * @return array
      */
-    public function provideQName(): array
+    public static function provideQName(): array
     {
         return [
             [true, 'some:Test'],

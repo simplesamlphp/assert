@@ -130,7 +130,7 @@ final class AssertTest extends TestCase
     /**
      * @return array
      */
-    public function provideValue(): array
+    public static function provideValue(): array
     {
         $stringable = new TestClass('phpunit');
 

@@ -36,7 +36,7 @@ final class DurationTest extends TestCase
     /**
      * @return array
      */
-    public function provideDuration(): array
+    public static function provideDuration(): array
     {
         return [
             [true, 'P2Y6M5DT12H35M30S'],

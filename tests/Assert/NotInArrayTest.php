@@ -37,7 +37,7 @@ final class NotInArrayTest extends TestCase
     /**
      * @return array
      */
-    public function provideNotInArray(): array
+    public static function provideNotInArray(): array
     {
         return [
             [true, 0, [1]],

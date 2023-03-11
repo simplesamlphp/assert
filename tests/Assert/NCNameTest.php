@@ -36,7 +36,7 @@ final class NCNameTest extends TestCase
     /**
      * @return array
      */
-    public function provideNCName(): array
+    public static function provideNCName(): array
     {
         return [
             [true, 'Test'],

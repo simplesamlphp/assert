@@ -53,7 +53,7 @@ final class DateTimeTest extends TestCase
     /**
      * @return array
      */
-    public function provideDateTime(): array
+    public static function provideDateTime(): array
     {
         return [
             'sub-second offset' => [true, '2016-07-27T19:30:00.123+05:00'],
@@ -69,7 +69,7 @@ final class DateTimeTest extends TestCase
     /**
      * @return array
      */
-    public function provideDateTimeZulu(): array
+    public static function provideDateTimeZulu(): array
     {
         return [
             'sub-second zulu' => [true, '2016-07-27T19:30:00.123Z'],
