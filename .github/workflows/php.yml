@@ -27,10 +27,11 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true
           LINTER_RULES_PATH: 'tools/linters'
+          VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_JSON: true
           VALIDATE_PHP_BUILTIN: true
           VALIDATE_YAML: true
-          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_XML: true
 
   quality:
     name: Quality control
@@ -153,7 +154,7 @@ jobs:
           extensions: ctype, spl
           tools: composer:v2
           ini-values: error_reporting=E_ALL
-          coverage: xdebug
+          coverage: pcov
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
