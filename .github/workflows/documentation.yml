@@ -1,3 +1,5 @@
+---
+
 name: Documentation
 
 on:  # yamllint disable-line rule:truthy
