@@ -46,7 +46,7 @@ jobs:
           # Should be the higest supported version, so we can use the newest tools
           php-version: '8.2'
           tools: composer:v2
-          extensions: ctype, spl
+          extensions: ctype, date, pcre, spl
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -106,7 +106,7 @@ jobs:
         with:
           # Should be the lowest supported version
           php-version: '8.0'
-          extensions: ctype, spl
+          extensions: ctype, date, pcre, spl
           tools: composer:v2
           coverage: none
 
@@ -153,7 +153,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: ctype, spl
+          extensions: ctype, date, pcre, spl
           tools: composer:v2
           ini-values: error_reporting=E_ALL
           coverage: pcov
@@ -215,7 +215,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: ctype, spl
+          extensions: ctype, date, pcre, spl
           tools: composer:v2
           ini-values: error_reporting=E_ALL
           coverage: none

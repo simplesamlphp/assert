@@ -14,7 +14,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "ext-SPL": "*",
+        "ext-date": "*",
+        "ext-pcre": "*",
+        "ext-spl": "*",
 
         "webmozart/assert": "^1.11"
     },

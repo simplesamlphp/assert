@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Assert;
 
 use BadMethodCallException; // Requires ext-spl
-use DateTime;
-use DateTimeImmutable;
+use DateTime; // Requires ext-date
+use DateTimeImmutable; // Request ext-date
 use InvalidArgumentException; // Requires ext-spl
 use Throwable;
 use Webmozart\Assert\Assert as Webmozart;
@@ -24,7 +24,7 @@ use function is_resource;
 use function is_subclass_of;
 use function lcfirst;
 use function method_exists;
-use function preg_match;
+use function preg_match; // Requires ext-pcre
 use function strval;
 
 /**

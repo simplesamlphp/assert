@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Assert;
 
-use DateTimeImmutable;
+use DateTimeImmutable; // Requires ext-date
 use InvalidArgumentException;
 
 use function array_map;
