@@ -21,7 +21,7 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "^1.4.1"
+        "simplesamlphp/simplesamlphp-test-framework": "^1.5.1"
     },
     "autoload": {
         "psr-4": {
