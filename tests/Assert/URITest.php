@@ -77,6 +77,7 @@ final class URITest extends TestCase
             'same-doc' => [true, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
             'url' => [true, 'https://www.simplesamlphp.org'],
             'bogus' => [false, 'stupid value'],
+            'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
         ];
     }
 
@@ -91,6 +92,7 @@ final class URITest extends TestCase
             'same-doc' => [false, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
             'urn' => [false, 'urn:x-simplesamlphp:phpunit'],
             'bogus' => [false, 'stupid value'],
+            'spn' => [false, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
         ];
     }
 
@@ -105,6 +107,7 @@ final class URITest extends TestCase
             'url' => [false, 'https://www.simplesamlphp.org'],
             'same-doc' => [false, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
             'bogus' => [false, 'stupid value'],
+            'spn' => [false, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
         ];
     }
 }
