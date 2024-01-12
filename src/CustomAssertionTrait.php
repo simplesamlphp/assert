@@ -10,11 +10,9 @@ use InvalidArgumentException;
 use function array_map;
 use function base64_decode;
 use function base64_encode;
-use function call_user_func_array;
 use function filter_var;
 use function implode;
 use function in_array;
-use function reset;
 use function sprintf;
 
 /**

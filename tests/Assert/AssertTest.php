@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\Assert;
 
 use BadMethodCallException; // Requires ext-spl
-use DateTimeImmutable;
-use ArrayIterator; // Requires ext-spl
+use DateTimeImmutable; // Requires ext-spl
 use LogicException; // Requires ext-spl
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
@@ -21,7 +20,7 @@ use function opendir;
 /**
  * Class \SimpleSAML\Assert\Assert
  *
- * @package simplesamlphp/saml2
+ * @package simplesamlphp/assert
  */
 final class AssertTest extends TestCase
 {

@@ -11,7 +11,8 @@ use SimpleSAML\Assert\AssertionFailedException;
 /**
  * Class \SimpleSAML\Assert\Assert
  *
- * @package simplesamlphp/saml2
+ * @package simplesamlphp/assert
+ *
  * @covers \SimpleSAML\Assert\Assert::__callStatic
  * @covers \SimpleSAML\Assert\Assert::notInArray
  */
