@@ -56,8 +56,8 @@ final class AssertTest extends TestCase
     public function testUnknownAssertionRaisesBadMethodCallException(): void
     {
         $this->expectException(BadMethodCallException::class);
-        // @phpstan-ignore-next-line
-        Assert::thisAssertionDoesNotExist('a', 'b', LogicException::class);
+        // @phpstan-ignore staticMethod.notFound
+        Assert::thisAssertionDoesNotExist('a', 'b', LogicException::class); // @phpstan-ignore-line
     }
 
 
@@ -66,8 +66,8 @@ final class AssertTest extends TestCase
     public function testUnknownNullOrAssertionRaisesBadMethodCallException(): void
     {
         $this->expectException(BadMethodCallException::class);
-        // @phpstan-ignore-next-line
-        Assert::nullOrThisAssertionDoesNotExist('a', 'b', LogicException::class);
+        // @phpstan-ignore staticMethod.notFound
+        Assert::nullOrThisAssertionDoesNotExist('a', 'b', LogicException::class); // @phpstan-ignore-line
     }
 
 
@@ -76,8 +76,8 @@ final class AssertTest extends TestCase
     public function testUnknownAllAssertionRaisesBadMethodCallException(): void
     {
         $this->expectException(BadMethodCallException::class);
-        // @phpstan-ignore-next-line
-        Assert::allThisAssertionDoesNotExist('a', 'b', LogicException::class);
+        // @phpstan-ignore staticMethod.notFound
+        Assert::allThisAssertionDoesNotExist('a', 'b', LogicException::class); // @phpstan-ignore-line
     }
 
 
