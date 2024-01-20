@@ -22,7 +22,7 @@ final class NotInArrayTest extends TestCase
      * @dataProvider provideNotInArray
      * @param boolean $shouldPass
      * @param mixed $item
-     * @param array $arr
+     * @param array<mixed> $arr
      */
     public function testnotInArray(bool $shouldPass, $item, array $arr): void
     {
@@ -36,7 +36,7 @@ final class NotInArrayTest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<int, array{0: bool, 1: int, 2: array{0: int}}>
      */
     public static function provideNotInArray(): array
     {

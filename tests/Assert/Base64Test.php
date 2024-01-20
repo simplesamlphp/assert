@@ -35,7 +35,7 @@ final class Base64Test extends TestCase
 
 
     /**
-     * @return array
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideBase64(): array
     {

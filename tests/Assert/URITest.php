@@ -69,7 +69,7 @@ final class URITest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideURI(): array
     {
@@ -84,7 +84,7 @@ final class URITest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideURL(): array
     {
@@ -99,7 +99,7 @@ final class URITest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideURN(): array
     {

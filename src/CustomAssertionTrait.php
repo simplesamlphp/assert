@@ -17,6 +17,37 @@ use function sprintf;
 
 /**
  * @package simplesamlphp/assert
+ *
+ * @method static void validDuration(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void stringPlausibleBase64(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void validDateTime(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void validDateTimeZulu(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void notInArray(mixed $value, array $values, string $message = '', class-string $exception = '')
+ * @method static void validURN(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void validURI(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void validURL(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void validNCName(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void validQName(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidDuration(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrStringPlausibleBase64(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidDateTime(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidDateTimeZulu(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrNotInArray(mixed $value, array $values, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidURN(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidURI(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidURL(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidNCName(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrValidQName(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allValidDuration(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allStringPlausibleBase64(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allValidDateTime(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allValidDateTimeZulu(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allNotInArray(mixed $value, array $values, string $message = '', class-string $exception = '')
+ * @method static void allValidURN(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allValidURI(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allValidURL(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allValidNCName(mixed $value, string $message = '', class-string $exception = '')
+ * @method static void allValidQName(mixed $value, string $message = '', class-string $exception = '')
  */
 trait CustomAssertionTrait
 {
@@ -144,7 +175,7 @@ trait CustomAssertionTrait
 
     /**
      * @param mixed $value
-     * @param array $values
+     * @param array<mixed> $values
      * @param string $message
      */
     private static function notInArray($value, array $values, string $message = ''): void

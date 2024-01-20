@@ -52,7 +52,7 @@ final class DateTimeTest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideDateTime(): array
     {
@@ -68,7 +68,7 @@ final class DateTimeTest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideDateTimeZulu(): array
     {

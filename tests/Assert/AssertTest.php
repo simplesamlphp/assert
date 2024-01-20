@@ -14,8 +14,8 @@ use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\Utils\TestClass;
 use stdClass;
 
-use function getcwd;
 use function opendir;
+use function sys_get_temp_dir;
 
 /**
  * Class \SimpleSAML\Assert\Assert
@@ -57,6 +57,7 @@ final class AssertTest extends TestCase
     public function testUnknownAssertionRaisesBadMethodCallException(): void
     {
         $this->expectException(BadMethodCallException::class);
+        // @phpstan-ignore-next-line
         Assert::thisAssertionDoesNotExist('a', 'b', LogicException::class);
     }
 
@@ -66,6 +67,7 @@ final class AssertTest extends TestCase
     public function testUnknownNullOrAssertionRaisesBadMethodCallException(): void
     {
         $this->expectException(BadMethodCallException::class);
+        // @phpstan-ignore-next-line
         Assert::nullOrThisAssertionDoesNotExist('a', 'b', LogicException::class);
     }
 
@@ -75,6 +77,7 @@ final class AssertTest extends TestCase
     public function testUnknownAllAssertionRaisesBadMethodCallException(): void
     {
         $this->expectException(BadMethodCallException::class);
+        // @phpstan-ignore-next-line
         Assert::allThisAssertionDoesNotExist('a', 'b', LogicException::class);
     }
 
@@ -127,7 +130,7 @@ final class AssertTest extends TestCase
 
 
     /**
-     * @return array
+     * @return array<string, array{0: mixed, 1: string}>
      */
     public static function provideValue(): array
     {
@@ -137,7 +140,7 @@ final class AssertTest extends TestCase
 
         $otherObject = new stdClass();
 
-        $resource = opendir(getcwd());
+        $resource = opendir(sys_get_temp_dir());
 
         return [
             'null' => [null, 'null'],

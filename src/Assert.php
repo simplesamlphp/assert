@@ -6,7 +6,7 @@ namespace SimpleSAML\Assert;
 
 use BadMethodCallException; // Requires ext-spl
 use DateTime; // Requires ext-date
-use DateTimeImmutable; // Request ext-date
+use DateTimeImmutable; // Requires ext-date
 use InvalidArgumentException; // Requires ext-spl
 use Throwable;
 use Webmozart\Assert\Assert as Webmozart;
@@ -219,8 +219,8 @@ use function strval;
  * @method static void allContains(iterable<string> $value, string $subString, string $message = '', class-string $exception = '')
  * @method static void nullOrNotContains(string|null $value, string $subString, string $message = '', class-string $exception = '')
  * @method static void allNotContains(iterable<string> $value, string $subString, string $message = '', class-string $exception = '')
- * @method static void nullOrWhitespaceOnly(string|null $value, string $message = '', class-string $exception = '')
- * @method static void allWhitespaceOnly(iterable<string> $value, string $message = '', class-string $exception = '')
+ * @method static void nullOrNotWhitespaceOnly(string|null $value, string $message = '', class-string $exception = '')
+ * @method static void allNotWhitespaceOnly(iterable<string> $value, string $message = '', class-string $exception = '')
  * @method static void nullOrStartsWith(string|null $value, string $prefix, string $message = '', class-string $exception = '')
  * @method static void allStartsWith(iterable<string> $value, string $prefix, string $message = '', class-string $exception = '')
  * @method static void nullOrNotStartsWith(string|null $value, string $prefix, string $message = '', class-string $exception = '')
@@ -315,7 +315,7 @@ final class Assert
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array<mixed> $arguments
      */
     public static function __callStatic(string $name, array $arguments): void
     {
@@ -367,7 +367,7 @@ final class Assert
      * Handle nullOr* for either Webmozart or for our custom assertions
      *
      * @param callable $method
-     * @param array $arguments
+     * @param array<mixed> $arguments
      * @return void
      */
     private static function nullOr(callable $method, array $arguments): void
@@ -381,7 +381,7 @@ final class Assert
      * all* for our custom assertions
      *
      * @param callable $method
-     * @param array $arguments
+     * @param array<mixed> $arguments
      * @return void
      */
     private static function all(callable $method, array $arguments): void
@@ -402,6 +402,10 @@ final class Assert
      */
     protected static function valueToString(mixed $value): string
     {
+        if (is_resource($value)) {
+            return 'resource';
+        }
+
         if (null === $value) {
             return 'null';
         }
@@ -428,10 +432,6 @@ final class Assert
             }
 
             return $value::class;
-        }
-
-        if (is_resource($value)) {
-            return 'resource';
         }
 
         if (is_string($value)) {
