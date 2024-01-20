@@ -29,7 +29,6 @@ final class AssertTest extends TestCase
      */
     public function testAssertionPassing(): void
     {
-        /** @psalm-suppress TooFewArguments */
         Assert::integer(1);
     }
 
