@@ -424,14 +424,14 @@ final class Assert
 
         if (is_object($value)) {
             if (method_exists($value, '__toString')) {
-                return $value::class . ': ' . self::valueToString($value->__toString());
+                return get_class($value) . ': ' . self::valueToString($value->__toString());
             }
 
             if ($value instanceof DateTime || $value instanceof DateTimeImmutable) {
-                return $value::class . ': ' . self::valueToString($value->format('c'));
+                return get_class($value) . ': ' . self::valueToString($value->format('c'));
             }
 
-            return $value::class;
+            return get_class($value);
         }
 
         if (is_string($value)) {
