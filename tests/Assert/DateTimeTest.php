@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 
 /**
- * Class \SimpleSAML\Assert\Assert
+ * Class \SimpleSAML\Assert\DateTimeTest
  *
  * @package simplesamlphp/assert
- *
- * @covers \SimpleSAML\Assert\Assert::__callStatic
- * @covers \SimpleSAML\Assert\Assert::validDateTime
- * @covers \SimpleSAML\Assert\Assert::validDateTimeZulu
  */
+#[CoversClass(Assert::class)]
 final class DateTimeTest extends TestCase
 {
     /**
-     * @dataProvider provideDateTime
      * @param boolean $shouldPass
      * @param string $timestamp
      */
+    #[DataProvider('provideDateTime')]
     public function testValidDateTime(bool $shouldPass, string $timestamp): void
     {
         try {
@@ -36,10 +35,10 @@ final class DateTimeTest extends TestCase
 
 
     /**
-     * @dataProvider provideDateTimeZulu
      * @param boolean $shouldPass
      * @param string $timestamp
      */
+    #[DataProvider('provideDateTimeZulu')]
     public function testValidDateTimeZulu(bool $shouldPass, string $timestamp): void
     {
         try {

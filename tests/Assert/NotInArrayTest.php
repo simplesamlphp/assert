@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 
 /**
- * Class \SimpleSAML\Assert\Assert
+ * Class \SimpleSAML\Assert\NotInArrayTest
  *
  * @package simplesamlphp/assert
- *
- * @covers \SimpleSAML\Assert\Assert::__callStatic
- * @covers \SimpleSAML\Assert\Assert::notInArray
  */
+#[CoversClass(Assert::class)]
 final class NotInArrayTest extends TestCase
 {
     /**
-     * @dataProvider provideNotInArray
      * @param boolean $shouldPass
      * @param mixed $item
      * @param array<mixed> $arr
      */
+    #[DataProvider('provideNotInArray')]
     public function testnotInArray(bool $shouldPass, $item, array $arr): void
     {
         try {

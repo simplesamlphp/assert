@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 
 /**
- * Class \SimpleSAML\Assert\Assert
+ * Class \SimpleSAML\Assert\DurationTest
  *
  * @package simplesamlphp/assert
- *
- * @covers \SimpleSAML\Assert\Assert::__callStatic
- * @covers \SimpleSAML\Assert\Assert::validDuration
  */
+#[CoversClass(Assert::class)]
 final class DurationTest extends TestCase
 {
     /**
-     * @dataProvider provideDuration
      * @param boolean $shouldPass
      * @param string $duration
      */
+    #[DataProvider('provideDuration')]
     public function testValidDuration(bool $shouldPass, string $duration): void
     {
         try {

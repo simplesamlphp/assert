@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 
 /**
- * Class \SimpleSAML\Assert\Assert
+ * Class \SimpleSAML\Assert\Base64Test
  *
  * @package simplesamlphp/assert
- *
- * @covers \SimpleSAML\Assert\Assert::__callStatic
- * @covers \SimpleSAML\Assert\Assert::stringPlausibleBase64
  */
+#[CoversClass(Assert::class)]
 final class Base64Test extends TestCase
 {
     /**
-     * @dataProvider provideBase64
      * @param boolean $shouldPass
      * @param string $name
      */
+    #[DataProvider('provideBase64')]
     public function testStringPlausibleBase64(bool $shouldPass, string $name): void
     {
         try {

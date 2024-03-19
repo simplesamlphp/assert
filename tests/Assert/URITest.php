@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 
 /**
- * Class \SimpleSAML\Assert\Assert
+ * Class \SimpleSAML\Assert\URITest
  *
  * @package simplesamlphp/assert
- *
- * @covers \SimpleSAML\Assert\Assert::__callStatic
- * @covers \SimpleSAML\Assert\Assert::validURI
- * @covers \SimpleSAML\Assert\Assert::validURL
- * @covers \SimpleSAML\Assert\Assert::validURN
  */
+#[CoversClass(Assert::class)]
 final class URITest extends TestCase
 {
     /**
-     * @dataProvider provideURI
      * @param boolean $shouldPass
      * @param string $uri
      */
+    #[DataProvider('provideURI')]
     public function testValidURI(bool $shouldPass, string $uri): void
     {
         try {
@@ -37,10 +35,10 @@ final class URITest extends TestCase
 
 
     /**
-     * @dataProvider provideURL
      * @param boolean $shouldPass
      * @param string $url
      */
+    #[DataProvider('provideURL')]
     public function testValidURL(bool $shouldPass, string $url): void
     {
         try {
@@ -53,10 +51,10 @@ final class URITest extends TestCase
 
 
     /**
-     * @dataProvider provideURN
      * @param boolean $shouldPass
      * @param string $urn
      */
+    #[DataProvider('provideURN')]
     public function testValidURN(bool $shouldPass, string $urn): void
     {
         try {

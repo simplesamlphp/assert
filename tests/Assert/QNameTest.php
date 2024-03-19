@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 
 /**
- * Class \SimpleSAML\Assert\Assert
+ * Class \SimpleSAML\Assert\QNameTest
  *
  * @package simplesamlphp/assert
- *
- * @covers \SimpleSAML\Assert\Assert::__callStatic
- * @covers \SimpleSAML\Assert\Assert::validQName
  */
+#[CoversClass(Assert::class)]
 final class QNameTest extends TestCase
 {
     /**
-     * @dataProvider provideQName
      * @param boolean $shouldPass
      * @param string $name
      */
+    #[DataProvider('provideQName')]
     public function testValidQName(bool $shouldPass, string $name): void
     {
         try {

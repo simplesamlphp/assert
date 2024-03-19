@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Assert;
 
-use BadMethodCallException; // Requires ext-spl
-use DateTimeImmutable; // Requires ext-spl
-use LogicException; // Requires ext-spl
+use BadMethodCallException;
+use DateTimeImmutable;
+use LogicException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use SimpleSAML\Assert\Assert;
@@ -18,15 +21,14 @@ use function opendir;
 use function sys_get_temp_dir;
 
 /**
- * Class \SimpleSAML\Assert\Assert
+ * Class \SimpleSAML\Assert\AssertTest
  *
  * @package simplesamlphp/assert
  */
+#[CoversClass(Assert::class)]
 final class AssertTest extends TestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testAssertionPassing(): void
     {
         Assert::integer(1);
@@ -114,10 +116,10 @@ final class AssertTest extends TestCase
 
 
     /**
-     * @dataProvider provideValue
      * @param mixed $value
      * @param string $expected
      */
+    #[DataProvider('provideValue')]
     public function testValueToString(mixed $value, string $expected): void
     {
         $assert = new Assert();
