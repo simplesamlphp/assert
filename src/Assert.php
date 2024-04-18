@@ -120,7 +120,7 @@ use function strval;
  * @method static void isNonEmptyList(mixed $array, string $message = '', class-string $exception = '')
  * @method static void isMap(mixed $array, string $message = '', class-string $exception = '')
  * @method static void isNonEmptyMap(mixed $array, string $message = '', class-string $exception = '')
- * @method static void uid(string $value, string $message = '', class-string $exception = '')
+ * @method static void uuid(string $value, string $message = '', class-string $exception = '')
  * @method static void throws(Closure $expression, string $class = 'Exception', string $message = '', class-string $exception = '')
  *
  * @method static void nullOrString(mixed $value, string $message = '', class-string $exception = '')
