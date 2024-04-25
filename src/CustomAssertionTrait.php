@@ -115,7 +115,7 @@ trait CustomAssertionTrait
             $result = false;
         } else {
             $decoded = base64_decode($value, true);
-            if ($decoded === false) {
+            if (empty($decoded)) { // Invalid _or_ empty string
                 $result = false;
             } elseif (base64_encode($decoded) !== $value) {
                 $result = false;
