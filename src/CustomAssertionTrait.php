@@ -63,7 +63,7 @@ trait CustomAssertionTrait
         if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$duration_regex]]) === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid xs:duration',
-                $value
+                $value,
             ));
         }
     }
@@ -96,7 +96,7 @@ trait CustomAssertionTrait
         if ($result === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid Base64 encoded string',
-                $value
+                $value,
             ));
         }
     }
@@ -114,7 +114,7 @@ trait CustomAssertionTrait
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid DateTime',
-                $value
+                $value,
             ));
         }
     }
@@ -133,12 +133,12 @@ trait CustomAssertionTrait
         if ($dateTime === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid DateTime',
-                $value
+                $value,
             ));
         } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
-                $value
+                $value,
             ));
         }
     }
@@ -174,7 +174,7 @@ trait CustomAssertionTrait
         if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$urn_regex]]) === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC8141 compliant URN',
-                $value
+                $value,
             ));
         }
     }
@@ -189,7 +189,7 @@ trait CustomAssertionTrait
         if (filter_var($value, FILTER_VALIDATE_URL) === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
-                $value
+                $value,
             ));
         }
     }
@@ -209,7 +209,7 @@ trait CustomAssertionTrait
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
-                $value
+                $value,
             ));
         }
     }
@@ -224,7 +224,7 @@ trait CustomAssertionTrait
         if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$ncname_regex]]) === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid non-colonized name (NCName)',
-                $value
+                $value,
             ));
         }
     }
@@ -242,7 +242,7 @@ trait CustomAssertionTrait
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid qualified name (QName)',
-                $value
+                $value,
             ));
         }
     }
