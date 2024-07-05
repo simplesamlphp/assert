@@ -15,12 +15,16 @@ use function filter_var;
 use function implode;
 use function in_array;
 use function sprintf;
+use function substr;
 
 /**
  * @package simplesamlphp/assert
  */
 trait CustomAssertionTrait
 {
+    /** @var string */
+    private static string $datetime_regex = '/-?[0-9]{4}-(((0(1|3|5|7|8)|1(0|2))-(0[1-9]|(1|2)[0-9]|3[0-1]))|((0(4|6|9)|11)-(0[1-9]|(1|2)[0-9]|30))|(02-(0[1-9]|(1|2)[0-9])))T([0-1][0-9]|2[0-4]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-999])?((\+|-)([0-1][0-9]|2[0-4]):(0[0-9]|[1-5][0-9])|Z)?/i';
+
     /** @var string */
     private static string $duration_regex = '/^([-+]?)P(?!$)(?:(?<years>\d+(?:[\.\,]\d+)?)Y)?(?:(?<months>\d+(?:[\.\,]\d+)?)M)?(?:(?<weeks>\d+(?:[\.\,]\d+)?)W)?(?:(?<days>\d+(?:[\.\,]\d+)?)D)?(T(?=\d)(?:(?<hours>\d+(?:[\.\,]\d+)?)H)?(?:(?<minutes>\d+(?:[\.\,]\d+)?)M)?(?:(?<seconds>\d+(?:[\.\,]\d+)?)S)?)?$/';
 
@@ -108,12 +112,9 @@ trait CustomAssertionTrait
      */
     private static function validDateTime(string $value, string $message = ''): void
     {
-        if (
-            DateTimeImmutable::createFromFormat(DateTimeInterface::ISO8601, $value) === false &&
-            DateTimeImmutable::createFromFormat(DateTimeInterface::RFC3339_EXTENDED, $value) === false
-        ) {
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$datetime_regex]]) === false) {
             throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid DateTime',
+                $message ?: '\'%s\' is not a valid xs:dateTime',
                 $value,
             ));
         }
@@ -126,16 +127,12 @@ trait CustomAssertionTrait
      */
     private static function validDateTimeZulu(string $value, string $message = ''): void
     {
-        $dateTime1 = DateTimeImmutable::createFromFormat(DateTimeInterface::ISO8601, $value);
-        $dateTime2 = DateTimeImmutable::createFromFormat(DateTimeInterface::RFC3339_EXTENDED, $value);
-
-        $dateTime = $dateTime1 ?: $dateTime2;
-        if ($dateTime === false) {
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$datetime_regex]]) === false) {
             throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid DateTime',
+                $message ?: '\'%s\' is not a valid xs:dateTime',
                 $value,
             ));
-        } elseif ($dateTime->getTimezone()->getName() !== 'Z') {
+        } elseif (substr($value, -1) !== 'Z') {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
                 $value,
