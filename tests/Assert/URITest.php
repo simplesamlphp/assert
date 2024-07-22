@@ -78,6 +78,7 @@ final class URITest extends TestCase
             'invalid_char' => [false, 'https://a⒈com'],
             'intl' => [true, 'https://niño.com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
+            'typos' => [true, 'https//www.uni.l/en/'],
         ];
     }
 
@@ -94,6 +95,7 @@ final class URITest extends TestCase
             'invalid_char' => [false, 'https://a⒈com'],
             'intl' => [true, 'https://niño.com'],
             'spn' => [false, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
+            'typos' => [false, 'https//www.uni.l/en/'],
         ];
     }
 
@@ -110,6 +112,7 @@ final class URITest extends TestCase
             'invalid_char' => [false, 'https://a⒈com'],
             'intl' => [false, 'https://niño.com'],
             'spn' => [false, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
+            'typos' => [false, 'https//www.uni.l/en/'],
         ];
     }
 }
