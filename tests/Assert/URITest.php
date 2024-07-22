@@ -75,8 +75,10 @@ final class URITest extends TestCase
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],
             'same-doc' => [true, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
             'url' => [true, 'https://www.simplesamlphp.org'],
-            'bogus' => [false, 'stupid value'],
+            'invalid_char' => [false, 'https://a⒈com'],
+            'intl' => [true, 'https://niño.com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
+            'typos' => [true, 'https//www.uni.l/en/'],
         ];
     }
 
@@ -90,8 +92,10 @@ final class URITest extends TestCase
             'url' => [true, 'https://www.simplesamlphp.org'],
             'same-doc' => [false, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
             'urn' => [false, 'urn:x-simplesamlphp:phpunit'],
-            'bogus' => [false, 'stupid value'],
+            'invalid_char' => [false, 'https://a⒈com'],
+            'intl' => [true, 'https://niño.com'],
             'spn' => [false, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
+            'typos' => [false, 'https//www.uni.l/en/'],
         ];
     }
 
@@ -105,8 +109,10 @@ final class URITest extends TestCase
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],
             'url' => [false, 'https://www.simplesamlphp.org'],
             'same-doc' => [false, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
-            'bogus' => [false, 'stupid value'],
+            'invalid_char' => [false, 'https://a⒈com'],
+            'intl' => [false, 'https://niño.com'],
             'spn' => [false, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
+            'typos' => [false, 'https//www.uni.l/en/'],
         ];
     }
 }
