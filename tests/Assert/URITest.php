@@ -75,7 +75,7 @@ final class URITest extends TestCase
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],
             'same-doc' => [true, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
             'url' => [true, 'https://www.simplesamlphp.org'],
-            'bogus' => [false, 'stupid value'],
+            'bogus' => [false, 'https://a⒈com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
         ];
     }
