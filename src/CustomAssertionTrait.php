@@ -113,26 +113,6 @@ trait CustomAssertionTrait
 
 
     /**
-     * @param string $value
-     * @param string $message
-     */
-    private static function validDateTimeZulu(string $value, string $message = ''): void
-    {
-        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$datetime_regex]]) === false) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid xs:dateTime',
-                $value,
-            ));
-        } elseif (substr($value, -1) !== 'Z') {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a DateTime expressed in the UTC timezone using the \'Z\' timezone identifier.',
-                $value,
-            ));
-        }
-    }
-
-
-    /**
      * @param mixed $value
      * @param array<mixed> $values
      * @param string $message
