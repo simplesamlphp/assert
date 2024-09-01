@@ -44,7 +44,6 @@ Method                                         | Description
 -----------------------------------------------|-----------------------------------------------------------------------------
 `stringPlausibleBase64($value, $message = '')` | Check that a value is plausibly base64  
 `validDateTime($value, $message = '')`         | Check that a value is a valid ISO8601 compliant DateTime
-`validDateTimeZulu($value, $message = '')`     | Check that a value is a valid ISO8601 compliant DateTime in the UTC timezone
 `notInArray($value, $values, $message = '')`   | Check that a value is _NOT_ one of a list of values
 `validURI($value, $message = '')`              | Check that a value is a valid RFC3986 URI
 `validURL($value, $message = '')`              | Check that a value is a valid RFC2396 URL
