@@ -81,6 +81,7 @@ final class URITest extends TestCase
             'typos' => [true, 'https//www.uni.l/en/'],
             'spaces' => [true, 'this is silly'],
             'empty' => [true, ''],
+            'azure-common' => [true, 'https://sts.windows.net/{tenantid}/'],
         ];
     }
 
