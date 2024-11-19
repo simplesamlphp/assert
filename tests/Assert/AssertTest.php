@@ -15,6 +15,7 @@ use ReflectionMethod;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\Utils\TestClass;
+use SimpleSAML\Test\Utils\TestEnum;
 use stdClass;
 
 use function opendir;
@@ -143,6 +144,8 @@ final class AssertTest extends TestCase
 
         $resource = opendir(sys_get_temp_dir());
 
+        $enum = TestEnum::PHPUnit;
+
         return [
             'null' => [null, 'null'],
             'true' => [true, 'true'],
@@ -150,6 +153,7 @@ final class AssertTest extends TestCase
             'array' => [[], 'array'],
             'Stringable' => [$stringable, 'SimpleSAML\Test\Utils\TestClass: "phpunit"'],
             'DateTime' => [$dateTime, 'DateTimeImmutable: "2000-01-01T00:00:00+00:00"'],
+            'Enum' => [$enum, 'SimpleSAML\Test\Utils\TestEnum::PHPUnit'],
             'object' => [$otherObject, 'stdClass'],
             'resource' => [$resource, 'resource'],
             'string' => ['string', '"string"'],
