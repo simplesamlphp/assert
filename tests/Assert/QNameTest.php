@@ -46,6 +46,8 @@ final class QNameTest extends TestCase
             [true, 'Test'],
             [false, '1Test'],
             [false, 'Te*st'],
+            // Trailing newlines are forbidden
+            [false, "some:Test\n"],
         ];
     }
 }

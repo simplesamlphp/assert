@@ -59,6 +59,8 @@ final class DurationTest extends TestCase
             [false, 'P2M1Y'],
             [false, 'P'],
             [false, 'PT15.S'],
+            // Trailing newlines are forbidden
+            [false, "P20M\n"],
         ];
     }
 }
