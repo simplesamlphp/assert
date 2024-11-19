@@ -49,6 +49,8 @@ final class NMTokenTest extends TestCase
             [false, 'foo bar'],
             // Commas are forbidden
             [false, 'foo,bar'],
+            // Trailing newlines are forbidden
+            [false, "foobar\n"],
         ];
     }
 }
