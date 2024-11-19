@@ -43,9 +43,6 @@ trait CustomAssertionTrait
     /** @var string */
     private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
 
-    /** @var string */
-    private static string $hostname_regex = '/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/';
-
     /***********************************************************************************
      *  NOTE:  Custom assertions may be added below this line.                         *
      *         They SHOULD be marked as `private` to ensure the call is forced         *
