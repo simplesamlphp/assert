@@ -23,6 +23,9 @@ use function substr;
 trait CustomAssertionTrait
 {
     /** @var string */
+    private static string $hexbin_regex = '/^([0-9a-fA-F]{2})+$/D';
+
+    /** @var string */
     private static string $nmtoken_regex = '/^[\w.:-]+$/Du';
 
     /** @var string */
@@ -124,6 +127,27 @@ trait CustomAssertionTrait
         if ($result === false) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid Base64 encoded string',
+                $value,
+            ));
+        }
+    }
+
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    private static function validHexBinary(string $value, string $message = ''): void
+    {
+        $result = true;
+
+        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$hexbin_regex]]) === false) {
+            $result = false;
+        }
+
+        if ($result === false) {
+            throw new InvalidArgumentException(sprintf(
+                $message ?: '\'%s\' is not a valid hexBinary string',
                 $value,
             ));
         }
