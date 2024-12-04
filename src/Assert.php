@@ -311,6 +311,7 @@ use function strval;
  * @method static void nullOrThrows(Closure|null $expression, string $class, string $message = '', string $exception = '')
  * @method static void allThrows(Closure[] $expression, string $class, string $message = '', string $exception = '')
  *
+ * @method static void validHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void validNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void validNMTokens(mixed $value, string $message = '', string $exception = '')
  * @method static void validDuration(mixed $value, string $message = '', string $exception = '')
@@ -322,6 +323,7 @@ use function strval;
  * @method static void validURL(mixed $value, string $message = '', string $exception = '')
  * @method static void validNCName(mixed $value, string $message = '', string $exception = '')
  * @method static void validQName(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNMTokens(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDuration(mixed $value, string $message = '', string $exception = '')
@@ -333,6 +335,7 @@ use function strval;
  * @method static void nullOrValidURL(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNCName(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidQName(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNMTokens(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDuration(mixed $value, string $message = '', string $exception = '')
