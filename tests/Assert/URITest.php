@@ -110,6 +110,8 @@ final class URITest extends TestCase
     {
         return [
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],
+            'newline_prefix' => [false, "\nurn:x-simplesamlphp:phpunit"],
+            'newline_suffix' => [false, "urn:x-simplesamlphp:phpunit\n"],
             'url' => [false, 'https://www.simplesamlphp.org'],
             'same-doc' => [false, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
             'invalid_char' => [false, 'https://a⒈com'],
