@@ -44,8 +44,16 @@ final class QNameTest extends TestCase
             [true, 'some:_Test'],
             [true, '_some:_Test'],
             [true, 'Test'],
+            // Cannot start with a colon
+            [false, ':test'],
+            // Cannot contain multiple colons
+            [false, 'test:test:test'],
+            // Cannot start with a number
             [false, '1Test'],
+            // Cannot contain a wildcard character
             [false, 'Te*st'],
+            // Prefixed newlines are forbidden
+            [false, "\nsome:Test"],
             // Trailing newlines are forbidden
             [false, "some:Test\n"],
         ];
