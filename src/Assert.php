@@ -324,7 +324,7 @@ use function strval;
  * @method static void allValidBase64(mixed $value, string $message = '', string $exception = '')
  * @method static void allNotInArray(mixed $value, array $values, string $message = '', string $exception = '')
  */
-final class Assert
+class Assert
 {
     use Base64Trait;
     use NotInArrayTrait;
