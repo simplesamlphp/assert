@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Assert;
 
+use GuzzleHttp\Psr7\Exception\MalformedUriException;
+use GuzzleHttp\Psr7\Uri;
 use InvalidArgumentException;
-use League\Uri\Exceptions\SyntaxError;
-use League\Uri\UriString;
 
 use function array_map;
 use function base64_decode;
@@ -197,8 +197,8 @@ trait CustomAssertionTrait
     private static function validURN(string $value, string $message = ''): void
     {
         try {
-            $uri = UriString::parse($value);
-        } catch (SyntaxError $e) {
+            $uri = new Uri($value);
+        } catch (MalformedUriException $e) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
                 $value,
@@ -206,8 +206,8 @@ trait CustomAssertionTrait
         }
 
         if (
-            $uri['scheme'] !== 'urn'
-            || (($uri['scheme'] !== null) && $uri['path'] !== substr($value, strlen($uri['scheme']) + 1))
+            $uri->getScheme() !== 'urn'
+            || (($uri->getScheme() !== null) && $uri->getPath() !== substr($value, strlen($uri->getScheme()) + 1))
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC8141 compliant URN',
@@ -224,15 +224,15 @@ trait CustomAssertionTrait
     private static function validURL(string $value, string $message = ''): void
     {
         try {
-            $uri = UriString::parse($value);
-        } catch (SyntaxError $e) {
+            $uri = new Uri($value);
+        } catch (MalformedUriException $e) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
                 $value,
             ));
         }
 
-        if ($uri['scheme'] !== 'http' && $uri['scheme'] !== 'https') {
+        if ($uri->getScheme() !== 'http' && $uri->getScheme() !== 'https') {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
                 $value,
@@ -248,8 +248,8 @@ trait CustomAssertionTrait
     private static function validURI(string $value, string $message = ''): void
     {
         try {
-            UriString::parse($value);
-        } catch (SyntaxError $e) {
+            new Uri($value);
+        } catch (MalformedUriException $e) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
                 $value,
