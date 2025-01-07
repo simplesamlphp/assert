@@ -88,8 +88,8 @@ final class AssertTest extends TestCase
      */
     public function testNullOrCustomAssertionWorks(): void
     {
-        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHBocA==');
-        Assert::nullOrStringPlausibleBase64(null);
+        Assert::nullOrValidBase64('U2ltcGxlU0FNTHBocA==');
+        Assert::nullOrValidBase64(null);
 
         // Also make sure it keeps working for Webmozart's native assertions
         Assert::nullOrString(null);
@@ -97,7 +97,7 @@ final class AssertTest extends TestCase
 
         // Test a failure for coverage
         $this->expectException(AssertionFailedException::class);
-        Assert::nullOrStringPlausibleBase64('U2ltcGxlU0FNTHocA==');
+        Assert::nullOrValidBase64('U2ltcGxlU0FNTHocA==');
     }
 
 
@@ -105,14 +105,14 @@ final class AssertTest extends TestCase
      */
     public function testAllCustomAssertionWorks(): void
     {
-        Assert::allStringPlausibleBase64(['U2ltcGxlU0FNTHBocA==', 'dGVzdA==']);
+        Assert::allValidBase64(['U2ltcGxlU0FNTHBocA==', 'dGVzdA==']);
 
         // Also make sure it keeps working for Webmozart's native assertions
         Assert::allString(['test', 'phpunit']);
 
         // Test a failure for coverage
         $this->expectException(AssertionFailedException::class);
-        Assert::allStringPlausibleBase64(['U2ltcGxlU0FNTHocA==', null]);
+        Assert::allValidBase64(['U2ltcGxlU0FNTHocA==', null]);
     }
 
 

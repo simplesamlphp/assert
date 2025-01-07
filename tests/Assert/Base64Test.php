@@ -23,10 +23,10 @@ final class Base64Test extends TestCase
      * @param string $name
      */
     #[DataProvider('provideBase64')]
-    public function testStringPlausibleBase64(bool $shouldPass, string $name): void
+    public function testvalidBase64(bool $shouldPass, string $name): void
     {
         try {
-            Assert::StringPlausibleBase64($name);
+            Assert::validBase64($name);
             $this->assertTrue($shouldPass);
         } catch (AssertionFailedException $e) {
             $this->assertFalse($shouldPass);
