@@ -323,6 +323,9 @@ use function strval;
  * @method static void nullOrValidURL(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidBase64(mixed $value, string $message = '', string $exception = '')
  * @method static void allNotInArray(mixed $value, array $values, string $message = '', string $exception = '')
+ * @method static void allValidURN(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidURI(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidURL(mixed $value, string $message = '', string $exception = '')
  */
 class Assert
 {
