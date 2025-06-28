@@ -129,7 +129,7 @@ use function strval;
  * @method static void nullOrString(mixed $value, string $message = '', string $exception = '')
  * @method static void allString(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrStringNotEmpty(mixed $value, string $message = '', string $exception = '')
- * @method static void allOrStringNotEmpty(mixed $value, string $message = '', string $exception = '')
+ * @method static void allStringNotEmpty(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void allInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrIntegerish(mixed $value, string $message = '', string $exception = '')
