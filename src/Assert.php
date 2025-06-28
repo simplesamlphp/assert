@@ -9,6 +9,7 @@ use DateTime; // Requires ext-date
 use DateTimeImmutable; // Requires ext-date
 use InvalidArgumentException; // Requires ext-spl
 use Throwable;
+use UnitEnum;
 use Webmozart\Assert\Assert as Webmozart;
 
 use function array_pop;
@@ -352,10 +353,12 @@ class Assert
         try {
             // Putting Webmozart first, since the most calls will be to their native assertions
             if (method_exists(Webmozart::class, $name)) {
-                call_user_func_array([Webmozart::class, $name], $arguments);
+                $callable = [Webmozart::class, $name];
+                (is_callable($callable)) && call_user_func_array($callable, $arguments);
                 return;
             } elseif (method_exists(static::class, $name)) {
-                call_user_func_array([static::class, $name], $arguments);
+                $callable = [static::class, $name];
+                (is_callable($callable)) && call_user_func_array($callable, $arguments);
                 return;
             } elseif (preg_match('/^nullOr(.+)$/i', $name, $matches)) {
                 $method = lcfirst($matches[1]);
@@ -452,8 +455,8 @@ class Assert
                 return $value::class . ': ' . self::valueToString($value->format('c'));
             }
 
-            if (function_exists('enum_exists') && enum_exists(get_class($value))) {
-                return get_class($value) . '::' . $value->name;
+            if ($value instanceof UnitEnum) {
+                return $value::class . '::' . $value->name;
             }
 
             return $value::class;
