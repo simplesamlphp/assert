@@ -82,6 +82,7 @@ final class URITest extends TestCase
             'spaces' => [true, 'this is silly'],
             'empty' => [true, ''],
             'azure-common' => [true, 'https://sts.windows.net/{tenantid}/'],
+            'email' => [true, 'scoobydoo@whereareyou.org'],
         ];
     }
 
