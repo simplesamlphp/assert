@@ -16,9 +16,6 @@ use function array_pop;
 use function array_unshift;
 use function call_user_func_array;
 use function end;
-use function enum_exists;
-use function function_exists;
-use function get_class;
 use function is_object;
 use function is_resource;
 use function is_string;
@@ -116,16 +113,16 @@ use function strval;
  * @method static void keyExists(array $array, string|int $key, string $message = '', string $exception = '')
  * @method static void keyNotExists(array $array, string|int $key, string $message = '', string $exception = '')
  * @method static void validArrayKey($value, string $message = '', string $exception = '')
- * @method static void count(Countable|array $array, int $number, string $message = '', string $exception = '')
- * @method static void minCount(Countable|array $array, int|float $min, string $message = '', string $exception = '')
- * @method static void maxCount(Countable|array $array, int|float $max, string $message = '', string $exception = '')
- * @method static void countBetween(Countable|array $array, int|float $min, int|float $max, string $message = '', string $exception = '')
+ * @method static void count(\Countable|array $array, int $number, string $message = '', string $exception = '')
+ * @method static void minCount(\Countable|array $array, int|float $min, string $message = '', string $exception = '')
+ * @method static void maxCount(\Countable|array $array, int|float $max, string $message = '', string $exception = '')
+ * @method static void countBetween(\Countable|array $array, int|float $min, int|float $max, string $message = '', string $exception = '')
  * @method static void isList(mixed $array, string $message = '', string $exception = '')
  * @method static void isNonEmptyList(mixed $array, string $message = '', string $exception = '')
  * @method static void isMap(mixed $array, string $message = '', string $exception = '')
  * @method static void isNonEmptyMap(mixed $array, string $message = '', string $exception = '')
  * @method static void uuid(string $value, string $message = '', string $exception = '')
- * @method static void throws(Closure $expression, string $class = 'Exception', string $message = '', string $exception = '')
+ * @method static void throws(\Closure $expression, string $class = 'Exception', string $message = '', string $exception = '')
  *
  * @method static void nullOrString(mixed $value, string $message = '', string $exception = '')
  * @method static void allString(mixed $value, string $message = '', string $exception = '')
@@ -291,13 +288,13 @@ use function strval;
  * @method static void allKeyNotExists(array $array, string|int $key, string $message = '', string $exception = '')
  * @method static void nullOrValidArrayKey(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidArrayKey(mixed $value, string $message = '', string $exception = '')
- * @method static void nullOrCount(Countable|array|null $array, int $number, string $message = '', string $exception = '')
+ * @method static void nullOrCount(\Countable|array|null $array, int $number, string $message = '', string $exception = '')
  * @method static void allCount(array $array, int $number, string $message = '', string $exception = '')
- * @method static void nullOrMinCount(Countable|array|null $array, int|float $min, string $message = '', string $exception = '')
+ * @method static void nullOrMinCount(\Countable|array|null $array, int|float $min, string $message = '', string $exception = '')
  * @method static void allMinCount(array $array, int|float $min, string $message = '', string $exception = '')
- * @method static void nullOrMaxCount(Countable|array|null $array, int|float $max, string $message = '', string $exception = '')
+ * @method static void nullOrMaxCount(\Countable|array|null $array, int|float $max, string $message = '', string $exception = '')
  * @method static void allMaxCount(array $array, int|float $max, string $message = '', string $exception = '')
- * @method static void nullOrCountBetween(Countable|array|null $array, int|float $min, int|float $max, string $message = '', string $exception = '')
+ * @method static void nullOrCountBetween(\Countable|array|null $array, int|float $min, int|float $max, string $message = '', string $exception = '')
  * @method static void allCountBetween(array $array, int|float $min, int|float $max, string $message = '', string $exception = '')
  * @method static void nullOrIsList(mixed $array, string $message = '', string $exception = '')
  * @method static void allIsList(mixed $array, string $message = '', string $exception = '')
@@ -309,8 +306,8 @@ use function strval;
  * @method static void allIsNonEmptyMap(mixed $array, string $message = '', string $exception = '')
  * @method static void nullOrUuid(string|null $value, string $message = '', string $exception = '')
  * @method static void allUuid(string[] $value, string $message = '', string $exception = '')
- * @method static void nullOrThrows(Closure|null $expression, string $class, string $message = '', string $exception = '')
- * @method static void allThrows(Closure[] $expression, string $class, string $message = '', string $exception = '')
+ * @method static void nullOrThrows(\Closure|null $expression, string $class, string $message = '', string $exception = '')
+ * @method static void allThrows(\Closure[] $expression, string $class, string $message = '', string $exception = '')
  *
  * @method static void validBase64(mixed $value, string $message = '', string $exception = '')
  * @method static void notInArray(mixed $value, array $values, string $message = '', string $exception = '')

@@ -9,10 +9,12 @@ class TestClass
 {
     private string $foo;
 
+
     public function __construct(string $foo)
     {
         $this->foo = $foo;
     }
+
 
     public function __toString(): string
     {
