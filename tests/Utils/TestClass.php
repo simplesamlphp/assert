@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\Utils;
 
 // Declare a simple class
-class TestClass
+readonly class TestClass
 {
     private string $foo;
 
