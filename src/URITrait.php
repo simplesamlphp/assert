@@ -43,7 +43,7 @@ trait URITrait
 
         if (
             $uri->getScheme() !== 'urn'
-            || (($uri->getScheme() !== null) && $uri->getPath() !== substr($value, strlen($uri->getScheme()) + 1))
+            || $uri->getPath() !== substr($value, strlen($uri->getScheme()) + 1)
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC8141 compliant URN',
