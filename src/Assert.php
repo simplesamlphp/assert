@@ -65,7 +65,7 @@ use function strval;
  * @method static void ipv4(mixed $value, string $message = '', string $exception = '')
  * @method static void ipv6(mixed $value, string $message = '', string $exception = '')
  * @method static void email(mixed $value, string $message = '', string $exception = '')
- * @method static void uniqueValues(array<mixed> $values, string $message = '', string $exception = '')
+ * @method static void uniqueValues(mixed[] $values, string $message = '', string $exception = '')
  * @method static void eq(mixed $value, mixed $expect, string $message = '', string $exception = '')
  * @method static void notEq(mixed $value, mixed $expect, string $message = '', string $exception = '')
  * @method static void same(mixed $value, mixed $expect, string $message = '', string $exception = '')
@@ -75,7 +75,7 @@ use function strval;
  * @method static void lessThan(mixed $value, mixed $limit, string $message = '', string $exception = '')
  * @method static void lessThanEq(mixed $value, mixed $limit, string $message = '', string $exception = '')
  * @method static void range(mixed $value, mixed $min, mixed $max, string $message = '', string $exception = '')
- * @method static void oneOf(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
+ * @method static void oneOf(mixed $value, mixed[] $values, string $message = '', string $exception = '')
  * @method static void inArray(mixed $value, mixed $values, string $message = '', string $exception = '')
  * @method static void contains(string $value, string $subString, string $message = '', string $exception = '')
  * @method static void notContains(string $value, string $subString, string $message = '', string $exception = '')
@@ -110,13 +110,13 @@ use function strval;
  * @method static void propertyNotExists(string|object $classOrObject, mixed $property, string $message = '', string $exception = '')
  * @method static void methodExists(string|object $classOrObject, mixed $method, string $message = '', string $exception = '')
  * @method static void methodNotExists(string|object $classOrObject, mixed $method, string $message = '', string $exception = '')
- * @method static void keyExists(array<mixed> $array, string|int $key, string $message = '', string $exception = '')
- * @method static void keyNotExists(array<mixed> $array, string|int $key, string $message = '', string $exception = '')
+ * @method static void keyExists(mixed[] $array, string|int $key, string $message = '', string $exception = '')
+ * @method static void keyNotExists(mixed[] $array, string|int $key, string $message = '', string $exception = '')
  * @method static void validArrayKey($value, string $message = '', string $exception = '')
- * @method static void count(\Countable|array<mixed> $array, int $number, string $message = '', string $exception = '')
- * @method static void minCount(\Countable|array<mixed> $array, int|float $min, string $message = '', string $exception = '')
- * @method static void maxCount(\Countable|array<mixed> $array, int|float $max, string $message = '', string $exception = '')
- * @method static void countBetween(\Countable|array<mixed> $array, int|float $min, int|float $max, string $message = '', string $exception = '')
+ * @method static void count(\Countable|mixed[] $array, int $number, string $message = '', string $exception = '')
+ * @method static void minCount(\Countable|mixed[] $array, int|float $min, string $message = '', string $exception = '')
+ * @method static void maxCount(\Countable|mixed[] $array, int|float $max, string $message = '', string $exception = '')
+ * @method static void countBetween(\Countable|mixed[] $array, int|float $min, int|float $max, string $message = '', string $exception = '')
  * @method static void isList(mixed $array, string $message = '', string $exception = '')
  * @method static void isNonEmptyList(mixed $array, string $message = '', string $exception = '')
  * @method static void isMap(mixed $array, string $message = '', string $exception = '')
@@ -192,8 +192,8 @@ use function strval;
  * @method static void allIpv6(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrEmail(mixed $value, string $message = '', string $exception = '')
  * @method static void allEmail(mixed $value, string $message = '', string $exception = '')
- * @method static void nullOrUniqueValues(array<mixed>|null $values, string $message = '', string $exception = '')
- * @method static void allUniqueValues(iterable<array<mixed>> $values, string $message = '', string $exception = '')
+ * @method static void nullOrUniqueValues(mixed[]|null $values, string $message = '', string $exception = '')
+ * @method static void allUniqueValues(iterable<mixed[]> $values, string $message = '', string $exception = '')
  * @method static void nullOrEq(mixed $value, mixed $expect, string $message = '', string $exception = '')
  * @method static void allEq(mixed $value, mixed $expect, string $message = '', string $exception = '')
  * @method static void nullOrNotEq(mixed $value, mixed $expect, string $message = '', string $exception = '')
@@ -212,10 +212,10 @@ use function strval;
  * @method static void allLessThanEq(mixed $value, mixed $limit, string $message = '', string $exception = '')
  * @method static void nullOrRange(mixed $value, mixed $min, mixed $max, string $message = '', string $exception = '')
  * @method static void allRange(mixed $value, mixed $min, mixed $max, string $message = '', string $exception = '')
- * @method static void nullOrOneOf(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
- * @method static void allOneOf(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
- * @method static void nullOrInArray(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
- * @method static void allInArray(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
+ * @method static void nullOrOneOf(mixed $value, mixed[] $values, string $message = '', string $exception = '')
+ * @method static void allOneOf(mixed $value, mixed[] $values, string $message = '', string $exception = '')
+ * @method static void nullOrInArray(mixed $value, mixed[] $values, string $message = '', string $exception = '')
+ * @method static void allInArray(mixed $value, mixed[] $values, string $message = '', string $exception = '')
  * @method static void nullOrContains(string|null $value, string $subString, string $message = '', string $exception = '')
  * @method static void allContains(string[] $value, string $subString, string $message = '', string $exception = '')
  * @method static void nullOrNotContains(string|null $value, string $subString, string $message = '', string $exception = '')
@@ -282,20 +282,20 @@ use function strval;
  * @method static void allMethodExists(iterable<string|object> $classOrObject, mixed $method, string $message = '', string $exception = '')
  * @method static void nullOrMethodNotExists(string|object|null $classOrObject, mixed $method, string $message = '', string $exception = '')
  * @method static void allMethodNotExists(iterable<string|object> $classOrObject, mixed $method, string $message = '', string $exception = '')
- * @method static void nullOrKeyExists(array<mixed>|null $array, string|int $key, string $message = '', string $exception = '')
- * @method static void allKeyExists(iterable<array<mixed>> $array, string|int $key, string $message = '', string $exception = '')
- * @method static void nullOrKeyNotExists(array<mixed>|null $array, string|int $key, string $message = '', string $exception = '')
- * @method static void allKeyNotExists(iterable<array<mixed>> $array, string|int $key, string $message = '', string $exception = '')
+ * @method static void nullOrKeyExists(mixed[]|null $array, string|int $key, string $message = '', string $exception = '')
+ * @method static void allKeyExists(iterable<mixed[]> $array, string|int $key, string $message = '', string $exception = '')
+ * @method static void nullOrKeyNotExists(mixed[]|null $array, string|int $key, string $message = '', string $exception = '')
+ * @method static void allKeyNotExists(iterable<mixed[]> $array, string|int $key, string $message = '', string $exception = '')
  * @method static void nullOrValidArrayKey(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidArrayKey(mixed $value, string $message = '', string $exception = '')
- * @method static void nullOrCount(\Countable|array<mixed>|null $array, int $number, string $message = '', string $exception = '')
- * @method static void allCount(iterable<\Countable|array<mixed>> $array, int $number, string $message = '', string $exception = '')
- * @method static void nullOrMinCount(\Countable|array<mixed>|null $array, int|float $min, string $message = '', string $exception = '')
- * @method static void allMinCount(iterable<\Countable|array<mixed>> $array, int|float $min, string $message = '', string $exception = '')
- * @method static void nullOrMaxCount(\Countable|array<mixed>|null $array, int|float $max, string $message = '', string $exception = '')
- * @method static void allMaxCount(iterable<\Countable|array<mixed>> $array, int|float $max, string $message = '', string $exception = '')
- * @method static void nullOrCountBetween(\Countable|array<mixed>|null $array, int|float $min, int|float $max, string $message = '', string $exception = '')
- * @method static void allCountBetween(iterable<\Countable|array<mixed>> $array, int|float $min, int|float $max, string $message = '', string $exception = '')
+ * @method static void nullOrCount(\Countable|mixed[]|null $array, int $number, string $message = '', string $exception = '')
+ * @method static void allCount(iterable<\Countable|mixed[]> $array, int $number, string $message = '', string $exception = '')
+ * @method static void nullOrMinCount(\Countable|mixed[]|null $array, int|float $min, string $message = '', string $exception = '')
+ * @method static void allMinCount(iterable<\Countable|mixed[]> $array, int|float $min, string $message = '', string $exception = '')
+ * @method static void nullOrMaxCount(\Countable|mixed[]|null $array, int|float $max, string $message = '', string $exception = '')
+ * @method static void allMaxCount(iterable<\Countable|mixed[]> $array, int|float $max, string $message = '', string $exception = '')
+ * @method static void nullOrCountBetween(\Countable|mixed[]|null $array, int|float $min, int|float $max, string $message = '', string $exception = '')
+ * @method static void allCountBetween(iterable<\Countable|mixed[]> $array, int|float $min, int|float $max, string $message = '', string $exception = '')
  * @method static void nullOrIsList(mixed $array, string $message = '', string $exception = '')
  * @method static void allIsList(mixed $array, string $message = '', string $exception = '')
  * @method static void nullOrIsNonEmptyList(mixed $array, string $message = '', string $exception = '')
@@ -310,17 +310,17 @@ use function strval;
  * @method static void allThrows(\Closure[] $expression, string $class, string $message = '', string $exception = '')
  *
  * @method static void validBase64(mixed $value, string $message = '', string $exception = '')
- * @method static void notInArray(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
+ * @method static void notInArray(mixed $value, mixed[] $values, string $message = '', string $exception = '')
  * @method static void validURN(mixed $value, string $message = '', string $exception = '')
  * @method static void validURI(mixed $value, string $message = '', string $exception = '')
  * @method static void validURL(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidBase64(mixed $value, string $message = '', string $exception = '')
- * @method static void nullOrNotInArray(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
+ * @method static void nullOrNotInArray(mixed $value, mixed[] $values, string $message = '', string $exception = '')
  * @method static void nullOrValidURN(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidURI(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidURL(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidBase64(mixed $value, string $message = '', string $exception = '')
- * @method static void allNotInArray(mixed $value, array<mixed> $values, string $message = '', string $exception = '')
+ * @method static void allNotInArray(mixed $value, mixed[] $values, string $message = '', string $exception = '')
  * @method static void allValidURN(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidURI(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidURL(mixed $value, string $message = '', string $exception = '')
@@ -334,7 +334,7 @@ class Assert
 
     /**
      * @param string $name
-     * @param array<mixed> $arguments
+     * @param mixed[] $arguments
      */
     public static function __callStatic(string $name, array $arguments): void
     {
@@ -388,7 +388,7 @@ class Assert
      * Handle nullOr* for either Webmozart or for our custom assertions
      *
      * @param callable $method
-     * @param array<mixed> $arguments
+     * @param mixed[] $arguments
      * @return void
      */
     private static function nullOr(callable $method, array $arguments): void
@@ -402,7 +402,7 @@ class Assert
      * all* for our custom assertions
      *
      * @param callable $method
-     * @param array<mixed> $arguments
+     * @param mixed[] $arguments
      * @return void
      */
     private static function all(callable $method, array $arguments): void
