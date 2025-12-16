@@ -16,6 +16,8 @@ use function array_pop;
 use function array_unshift;
 use function call_user_func_array;
 use function end;
+use function is_array;
+use function is_callable;
 use function is_object;
 use function is_resource;
 use function is_string;
@@ -23,6 +25,8 @@ use function is_subclass_of;
 use function lcfirst;
 use function method_exists;
 use function preg_match; // Requires ext-pcre
+use function reset;
+use function sprintf;
 use function strval;
 
 /**
@@ -389,7 +393,6 @@ class Assert
      *
      * @param callable $method
      * @param mixed[] $arguments
-     * @return void
      */
     private static function nullOr(callable $method, array $arguments): void
     {
@@ -403,7 +406,6 @@ class Assert
      *
      * @param callable $method
      * @param mixed[] $arguments
-     * @return void
      */
     private static function all(callable $method, array $arguments): void
     {
