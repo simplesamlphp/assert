@@ -17,8 +17,6 @@ use function substr;
  */
 trait URITrait
 {
-    private static Uri $uri;
-
     /***********************************************************************************
      *  NOTE:  Custom assertions may be added below this line.                         *
      *         They SHOULD be marked as `protected` to ensure the call is forced       *
@@ -26,6 +24,8 @@ trait URITrait
      *         Assertions marked `public` are called directly and will                 *
      *          not handle any custom exception passed to it.                          *
      ***********************************************************************************/
+
+    private static Uri $uri;
 
 
     /**
