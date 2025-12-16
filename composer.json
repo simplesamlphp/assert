@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-date": "*",
         "ext-filter": "*",
         "ext-pcre": "*",
@@ -25,7 +25,7 @@
     "require-dev": {
         "ext-intl": "*",
 
-        "simplesamlphp/simplesamlphp-test-framework": "~1.10"
+        "simplesamlphp/simplesamlphp-test-framework": "~1.11"
     },
     "autoload": {
         "psr-4": {
