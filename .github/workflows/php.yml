@@ -164,7 +164,7 @@ jobs:
           # Should be the higest supported version, so we can use the newest tools
           php-version: '8.5'
           tools: composer, composer-require-checker, composer-unused
-          extensions: ctype, date, filter, pcre, sodium, spl
+          extensions: ctype, date, filter, intl, pcre, sodium, spl
           coverage: none
 
       - name: Setup problem matchers for PHP
