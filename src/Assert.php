@@ -340,6 +340,8 @@ use function strval;
  * @method static mixed allValidURN(mixed $value, string $message = '', string $exception = '')
  * @method static mixed allValidURI(mixed $value, string $message = '', string $exception = '')
  * @method static mixed allValidURL(mixed $value, string $message = '', string $exception = '')
+ *
+ * @method static mixed getUri()
  */
 class Assert
 {

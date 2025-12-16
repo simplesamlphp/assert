@@ -17,6 +17,8 @@ use function substr;
  */
 trait URITrait
 {
+    private static Uri $uri;
+
     /***********************************************************************************
      *  NOTE:  Custom assertions may be added below this line.                         *
      *         They SHOULD be marked as `protected` to ensure the call is forced       *
@@ -27,13 +29,11 @@ trait URITrait
 
 
     /**
-     * @param string $value
-     * @param string $message
      */
-    protected static function validURN(string $value, string $message = ''): void
+    protected static function validURN(string $value, string $message = ''): string
     {
         try {
-            $uri = new Uri($value);
+            self::$uri = new Uri($value);
         } catch (MalformedUriException $e) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
@@ -42,25 +42,25 @@ trait URITrait
         }
 
         if (
-            $uri->getScheme() !== 'urn'
-            || $uri->getPath() !== substr($value, strlen($uri->getScheme()) + 1)
+            self::$uri->getScheme() !== 'urn'
+            || self::$uri->getPath() !== substr($value, strlen(self::$uri->getScheme()) + 1)
         ) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC8141 compliant URN',
                 $value,
             ));
         }
+
+        return $value;
     }
 
 
     /**
-     * @param string $value
-     * @param string $message
      */
-    protected static function validURL(string $value, string $message = ''): void
+    protected static function validURL(string $value, string $message = ''): string
     {
         try {
-            $uri = new Uri($value);
+            self::$uri = new Uri($value);
         } catch (MalformedUriException $e) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
@@ -68,28 +68,39 @@ trait URITrait
             ));
         }
 
-        if ($uri->getScheme() !== 'http' && $uri->getScheme() !== 'https') {
+        if (self::$uri->getScheme() !== 'http' && self::$uri->getScheme() !== 'https') {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
                 $value,
             ));
         }
+
+        return $value;
     }
 
 
     /**
-     * @param string $value
-     * @param string $message
      */
-    protected static function validURI(string $value, string $message = ''): void
+    protected static function validURI(string $value, string $message = ''): string
     {
         try {
-            new Uri($value);
+            self::$uri = new Uri($value);
         } catch (MalformedUriException $e) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
                 $value,
             ));
         }
+
+        return $value;
+    }
+
+
+    /**
+     * For convenience and efficiency, to get the Uri-object from the last assertion.
+     */
+    public static function getUri(): Uri
+    {
+        return self::$uri;
     }
 }
