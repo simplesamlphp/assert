@@ -16,7 +16,6 @@ use function sprintf;
  */
 trait Base64Trait
 {
-    /** @var string */
     private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
 
 
