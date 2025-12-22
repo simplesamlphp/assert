@@ -20,7 +20,7 @@
         "ext-spl": "*",
 
         "guzzlehttp/psr7": "~2.8",
-        "webmozart/assert": "~1.12"
+        "webmozart/assert": "~2.0"
     },
     "require-dev": {
         "ext-intl": "*",
