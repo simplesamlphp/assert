@@ -479,19 +479,23 @@ class Assert
                 return;
             } elseif (preg_match('/^nullOr(.+)$/i', $name, $matches)) {
                 $method = lcfirst($matches[1]);
+                /** @var callable-array $callable */
+                $callable = [static::class, 'nullOr'];
                 if (method_exists(Webmozart::class, $method)) {
-                    call_user_func_array([static::class, 'nullOr'], [[Webmozart::class, $method], $arguments]);
+                    call_user_func_array($callable, [[Webmozart::class, $method], $arguments]);
                 } elseif (method_exists(static::class, $method)) {
-                    call_user_func_array([static::class, 'nullOr'], [[static::class, $method], $arguments]);
+                    call_user_func_array($callable, [[static::class, $method], $arguments]);
                 } else {
                     throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
                 }
             } elseif (preg_match('/^all(.+)$/i', $name, $matches)) {
                 $method = lcfirst($matches[1]);
+                /** @var callable-array $callable */
+                $callable = [static::class, 'all'];
                 if (method_exists(Webmozart::class, $method)) {
-                    call_user_func_array([static::class, 'all'], [[Webmozart::class, $method], $arguments]);
+                    call_user_func_array($callable, [[Webmozart::class, $method], $arguments]);
                 } elseif (method_exists(static::class, $method)) {
-                    call_user_func_array([static::class, 'all'], [[static::class, $method], $arguments]);
+                    call_user_func_array($callable, [[static::class, $method], $arguments]);
                 } else {
                     throw new BadMethodCallException(sprintf("Assertion named `%s` does not exists.", $method));
                 }
