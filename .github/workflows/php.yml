@@ -57,7 +57,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: ctype, date, filter, intl, pcre, sodium, spl
           tools: composer
-          ini-values: error_reporting=E_ALL
+          ini-values: display_errors=on, error_reporting=E_ALL
           coverage: pcov
 
       - name: Setup problem matchers for PHP
