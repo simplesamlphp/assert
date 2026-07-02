@@ -125,7 +125,6 @@ final class AssertTest extends TestCase
     {
         $assert = new Assert();
         $method = new ReflectionMethod(Assert::class, 'valueToString');
-        $method->setAccessible(true);
 
         $this->assertEquals($expected, $method->invoke($assert, $value));
     }
