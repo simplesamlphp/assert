@@ -18,8 +18,8 @@
         "ext-filter": "*",
         "ext-pcre": "*",
         "ext-spl": "*",
+        "ext-uri": "*",
 
-        "guzzlehttp/psr7": "~2.8",
         "webmozart/assert": "~2.1"
     },
     "require-dev": {

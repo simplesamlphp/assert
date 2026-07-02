@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Assert;
 
-use GuzzleHttp\Psr7\Exception\MalformedUriException;
-use GuzzleHttp\Psr7\Uri;
 use InvalidArgumentException;
+use Uri\InvalidUriException;
+use Uri\Rfc3986\Uri;
+use Uri\WhatWg\InvalidUrlException;
+use Uri\WhatWg\Url;
 
 use function sprintf;
 use function strlen;
@@ -25,7 +27,7 @@ trait URITrait
      *          not handle any custom exception passed to it.                          *
      ***********************************************************************************/
 
-    private static Uri $uri;
+    private static Uri|Url $uri;
 
 
     /**
@@ -34,7 +36,7 @@ trait URITrait
     {
         try {
             self::$uri = new Uri($value);
-        } catch (MalformedUriException $e) {
+        } catch (InvalidUriException $e) {
             throw new InvalidArgumentException(sprintf(
                 $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
                 $value,
@@ -60,17 +62,17 @@ trait URITrait
     protected static function validURL(string $value, string $message = ''): string
     {
         try {
-            self::$uri = new Uri($value);
-        } catch (MalformedUriException $e) {
+            self::$uri = new Url($value);
+        } catch (InvalidUrlException $e) {
             throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
+                $message ?: '\'%s\' is not a valid WhatWg compliant URI',
                 $value,
             ));
         }
 
         if (self::$uri->getScheme() !== 'http' && self::$uri->getScheme() !== 'https') {
             throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC2396 compliant URL',
+                $message ?: '\'%s\' is not a valid WhatWg compliant URL',
                 $value,
             ));
         }
@@ -83,13 +85,31 @@ trait URITrait
      */
     protected static function validURI(string $value, string $message = ''): string
     {
+        $failure = false;
         try {
             self::$uri = new Uri($value);
-        } catch (MalformedUriException $e) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
-                $value,
-            ));
+        } catch (InvalidUriException $e) {
+            $failure = true;
+        }
+
+        if ($failure === true) {
+            try {
+                self::$uri = new Url($value);
+            } catch (InvalidUrlException $e) {
+                throw new InvalidArgumentException(sprintf(
+                    $message ?: '\'%s\' is not a valid WhatWg compliant URL',
+                    $value,
+                ));
+            } finally {
+                $failure = false;
+            }
+
+            if ($failure === true) {
+                throw new InvalidArgumentException(sprintf(
+                    $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
+                    $value,
+                ));
+            }
         }
 
         return $value;
