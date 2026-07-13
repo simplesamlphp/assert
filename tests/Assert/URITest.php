@@ -79,9 +79,9 @@ final class URITest extends TestCase
             'intl' => [true, 'https://niño.com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
             'typos' => [true, 'https//www.uni.l/en/'],
-            'spaces' => [true, 'this is silly'],
+            'spaces' => [false, 'this is silly'],
             'empty' => [true, ''],
-            'azure-common' => [true, 'https://sts.windows.net/{tenantid}/'],
+            'azure-common' => [true, 'https://sts.windows.net/123e4567-e89b-12d3-a456-426614174000/'],
             'email' => [true, 'scoobydoo@whereareyou.org'],
         ];
     }

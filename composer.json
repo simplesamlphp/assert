@@ -13,19 +13,19 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.5",
         "ext-date": "*",
         "ext-filter": "*",
         "ext-pcre": "*",
         "ext-spl": "*",
+        "ext-uri": "*",
 
-        "guzzlehttp/psr7": "~2.8",
         "webmozart/assert": "~2.1"
     },
     "require-dev": {
         "ext-intl": "*",
 
-        "simplesamlphp/simplesamlphp-test-framework": "~1.11"
+        "simplesamlphp/simplesamlphp-test-framework": "~2"
     },
     "autoload": {
         "psr-4": {
@@ -40,7 +40,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "v2.1.x-dev"
+            "dev-master": "v3.0.x-dev"
         }
     },
     "config": {
