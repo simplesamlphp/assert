@@ -40,7 +40,7 @@ final class Base64Test extends TestCase
     public static function provideBase64(): array
     {
         return [
-            'empty' => [false, ''],
+            'empty' => [true, ''],
             'valid' => [true, 'U2ltcGxlU0FNTHBocA=='],
             'bogus' => [false, '&*$(#&^@!(^%$'],
             'length not dividable by 4' => [false, 'U2ltcGxlU0FTHBocA=='],

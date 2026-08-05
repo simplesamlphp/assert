@@ -10,6 +10,7 @@ use function base64_decode;
 use function base64_encode;
 use function filter_var;
 use function sprintf;
+use function strlen;
 
 /**
  * @package simplesamlphp/assert
@@ -36,13 +37,25 @@ trait Base64Trait
     {
         $result = true;
 
-        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$base64_regex]]) === false) {
+        if ($value === '') {
+            // The empty string is valid
+            $result = true;
+        } elseif (strlen($value) % 4 !== 0) {
+            // Encoded string length must be a multiple of 4 (or 0 for empty string)
+            $result = false;
+        } elseif (
+            filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$base64_regex]]) === false
+        ) {
+            // Encoded string must not contain illegal characters and 0, 1 or 2 padding characters.
             $result = false;
         } else {
+            // Defense in depth: strict decoding fails on illegal characters or incorrect padding
             $decoded = base64_decode($value, true);
-            if (empty($decoded)) { // Invalid _or_ empty string
+            if ($decoded === false) {
+                // Strict decoding failed
                 $result = false;
             } elseif (base64_encode($decoded) !== $value) {
+                // re-encoding produced a different string
                 $result = false;
             }
         }
