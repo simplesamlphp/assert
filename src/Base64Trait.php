@@ -17,7 +17,8 @@ use function strlen;
  */
 trait Base64Trait
 {
-    private static string $base64_regex = '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{2}==|[a-z0-9+\/]{3}=)?$/i';
+    private static string $base64_regex =
+      '/^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/][AQgw]==|[a-z0-9+\/]{2}[AEIMQUYcgkosw048]=)?$/i';
 
 
     /***********************************************************************************
