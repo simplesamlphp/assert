@@ -42,6 +42,8 @@ final class Base64Test extends TestCase
         return [
             'empty' => [true, ''],
             'valid' => [true, 'U2ltcGxlU0FNTHBocA=='],
+            'invalid padding (1)' => [false, 'U2ltcGxlU0FNTHBocB=='],
+            'invalid padding (2)' => [false, 'U2ltcGxlU0FNTHBocAB='],
             'bogus' => [false, '&*$(#&^@!(^%$'],
             'length not dividable by 4' => [false, 'U2ltcGxlU0FTHBocA=='],
         ];
