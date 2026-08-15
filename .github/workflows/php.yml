@@ -165,7 +165,7 @@ jobs:
         with:
           # Should be the higest supported version, so we can use the newest tools
           php-version: '8.5'
-          tools: composer, composer-require-checker, composer-unused
+          tools: composer, composer-dependency-analyser
           extensions: ctype, date, filter, intl, pcre, sodium, spl
           coverage: none
 
@@ -190,11 +190,8 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Check code for hard dependencies missing in composer.json
-        run: composer-require-checker check composer.json
-
-      - name: Check code for unused dependencies in composer.json
-        run: composer-unused
+      - name: Check code for missing or unused dependencies
+        run: composer-dependency-analyser
 
       - name: PHP Code Sniffer
         run: vendor/bin/phpcs
