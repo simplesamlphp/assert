@@ -85,41 +85,33 @@ trait URITrait
      */
     protected static function validURI(string $value, string $message = ''): string
     {
-        $failure = false;
         try {
             self::$uri = new Uri($value);
+            return $value;
         } catch (InvalidUriException $e) {
-            $failure = true;
-        }
-
-        if ($failure === true) {
             try {
                 self::$uri = new Url($value);
+                return $value;
             } catch (InvalidUrlException $e) {
                 throw new InvalidArgumentException(sprintf(
                     $message ?: '\'%s\' is not a valid WhatWg compliant URL',
                     $value,
                 ));
-            } finally {
-                $failure = false;
-            }
-
-            if ($failure === true) {
-                throw new InvalidArgumentException(sprintf(
-                    $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
-                    $value,
-                ));
             }
         }
 
-        return $value;
+        throw new InvalidArgumentException(sprintf(
+            $message ?: '\'%s\' is not a valid RFC3986 compliant URI',
+            $value,
+        ));
     }
 
 
     /**
      * For convenience and efficiency, to get the Uri-object from the last assertion.
+     * @return \Uri\Rfc3986\Uri|\Uri\WhatWg\Url
      */
-    public static function getUri(): Uri
+    public static function getUri(): Uri|Url
     {
         return self::$uri;
     }
