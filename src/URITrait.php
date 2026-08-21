@@ -86,17 +86,13 @@ trait URITrait
     protected static function validURI(string $value, string $message = ''): string
     {
         try {
-            self::$uri = new Uri($value);
+            self::$uri = new Url($value);
             return $value;
-        } catch (InvalidUriException $e) {
+        } catch (InvalidUrlException $uri) {
             try {
-                self::$uri = new Url($value);
+                self::$uri = new Uri($value);
                 return $value;
-            } catch (InvalidUrlException $e) {
-                throw new InvalidArgumentException(sprintf(
-                    $message ?: '\'%s\' is not a valid WhatWg compliant URL',
-                    $value,
-                ));
+            } catch (InvalidUriException $uri) {
             }
         }
 
