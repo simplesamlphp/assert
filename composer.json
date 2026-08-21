@@ -25,6 +25,7 @@
     "require-dev": {
         "ext-intl": "*",
 
+        "phpunit/phpunit": "^13.3",
         "simplesamlphp/simplesamlphp-test-framework": "~2"
     },
     "autoload": {
