@@ -200,7 +200,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Check code for missing or unused dependencies
-        run: composer-dependency-analyser
+        run: composer-dependency-analyser --verbose -config=tools/composer-dependency-analyser.php
 
       - name: PHP Code Sniffer
         run: vendor/bin/phpcs
