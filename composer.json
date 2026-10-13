@@ -20,7 +20,7 @@
         "ext-spl": "*",
         "ext-uri": "*",
 
-        "webmozart/assert": "~2.1"
+        "webmozart/assert": "~2.5"
     },
     "require-dev": {
         "ext-intl": "*",
