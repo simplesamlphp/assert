@@ -19,8 +19,8 @@
         "ext-pcre": "*",
         "ext-spl": "*",
 
-        "guzzlehttp/psr7": "~2.7",
-        "webmozart/assert": "~1.11.0"
+        "guzzlehttp/psr7": "~2.8 || ^3.0",
+        "webmozart/assert": "~1.12"
     },
     "require-dev": {
         "ext-intl": "*",
